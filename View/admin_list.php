@@ -220,11 +220,13 @@
                 <tr>
                     <th>id</th>
                     <th>name</th>
+                    <th>id_competition</th>
+                    <th>id_pays</th>
                     <th class="action">Actions</th>
                 </tr>
                 <?php if (count($participants) == 0 ):?>
                     <tr>
-                        <td colspan="3">
+                        <td colspan="5">
                             Pas de data
                         </td>
                     </tr>
@@ -233,6 +235,8 @@
                     <tr>
                         <td><?=$data->id?></td>
                         <td><?=$data->name?></td>
+                        <td><?=$data->id_competition?></td>
+                        <td><?=$data->id_pays?></td>
                         <td class="action">
                             <a class="modifier" href="?a=modifier&id=<?=$data->id?>&type=participants">Edit</a>
                             <a class="supprimer" href="?a=supprimer&id=<?=$data->id?>&type=participants">Delete</a>

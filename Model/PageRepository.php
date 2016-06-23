@@ -150,6 +150,7 @@ class PageRepository
 
     /**
      * @param $id
+     * @param $type
      * @return bool
      */
     public function supprimer($id, $type)
@@ -365,39 +366,25 @@ class PageRepository
      */
     public function insererParticipants($data)
     {
-        $cp=1;
-        $chaine = "id_participant_".$cp;
-
         $sql ="INSERT INTO
                 `participants`
-                (";
-        for($cp=1; $cp<=32; $cp++){
-            $sql.="`".$chaine."`";
-            if($cp != 32){
-                $sql.=",";
-            }
-        }
-        $sql.= ")
+                (
+                      `name`,
+                      `id_competition`,
+                      `id_pays`
+                )
                 VALUES
-                ( :name,";
-        for($cp=1; $cp<=32; $cp++){
-            $sql.=":".$chaine;
-            if($cp != 32){
-                $sql.=",";
-            }
-        }
-        $sql.=")";
+                (
+                    :name,
+                    :id_competition,
+                    :id_pays
+                )
+                ";
 
         $stmt = $this->PDO->prepare($sql);
         $stmt->bindParam(':name',$data->name,\PDO::PARAM_STR);
-        $stmt->bindParam(':type',$data->type,\PDO::PARAM_STR);
-        $stmt->bindParam(':date',$data->date,\PDO::PARAM_STR);
-        $stmt->bindParam(':id_participants',$data->id_participants,\PDO::PARAM_STR);
-        $stmt->bindParam(':id_organisateur',$data->id_organisateur,\PDO::PARAM_STR);
-        $stmt->bindParam(':id_podium',$data->id_podium,\PDO::PARAM_STR);
-        $stmt->bindParam(':id_hymne',$data->id_hymne,\PDO::PARAM_STR);
-        $stmt->bindParam(':id_image',$data->id_image,\PDO::PARAM_STR);
-        $stmt->bindParam(':description',$data->description,\PDO::PARAM_STR);
+        $stmt->bindParam(':id_competition',$data->id_competition,\PDO::PARAM_STR);
+        $stmt->bindParam(':id_pays',$data->id_pays,\PDO::PARAM_STR);
         $stmt->execute();
 
         return 1;
@@ -500,7 +487,10 @@ class PageRepository
         $sql ="SELECT
                     `id`,
                     `name`,
-                    `lien`
+                    `id_winner`,
+                    `id_second`,
+                    `id_semi_1`,
+                    `id_semi_2`
                 FROM
                     `podium`
                 ";
@@ -515,20 +505,14 @@ class PageRepository
      */
     public function findAllParticipants()
     {
-        $cp=1;
-        $chaine = "id_participant_".$cp;
-
         $sql ="SELECT
                     `id`,
-                    `name`,";
-        for($cp=1; $cp<=32; $cp++){
-            $sql.="`".$chaine."`";
-            if($cp != 32){
-                $sql.=",";
-            }
-        }
-        $sql.="FROM
-                    `participants`";
+                    `name`,
+                    `id_competition`,
+                    `id_pays`
+                FROM
+                    `participants`
+                ";
 
         $stmt = $this->PDO->prepare($sql);
         $stmt->execute();
