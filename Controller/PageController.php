@@ -96,12 +96,14 @@ class PageController
                     // ne rien faire
                 } else {
                     // traitement de la requete
-                    $new = (object) array(
-                        'name' => $_POST['name'],
-                        'name' => $_POST['name'],
-
-                    );
-                    $this->repository->insererParticipants($new);
+                    foreach($_POST['id_pays[]'] as $data){
+                        $new = (object) array(
+                            'name' => $_POST['name'],
+                            'id_competition' => $_POST['id_competition'],
+                            'id_pays' => $data
+                        );
+                        $this->repository->insererParticipants($new);
+                    }
                 }
                 break;
             case 'podium':
@@ -112,6 +114,7 @@ class PageController
                 } else {
                     // traitement de la requete
                     $new = (object) array(
+                        'name' => $_POST['name'],
                         'id_winner' => $_POST['id_winner'],
                         'id_second' => $_POST['id_second'],
                         'id_semi_1' => $_POST['id_semi_1'],
@@ -127,6 +130,7 @@ class PageController
                 } else {
                     // traitement de la requete
                     $new = (object) array(
+                        'name' => $_POST['name'],
                         'lien' => $_POST['lien']
                     );
                     $this->repository->insererImage($new);
@@ -135,6 +139,8 @@ class PageController
             default:
                 return false;
         }
+
+        return 1;
 
     }
 
