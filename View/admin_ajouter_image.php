@@ -18,8 +18,8 @@
         <h1>Ajouter une Image</h1>
 
         <form action="" method="post">
-            <label for="name">name</label><input id="name" name="name" type="text" placeholder="">
-            <label for="lien">lien</label><input id="lien" name="lien" type="text" placeholder="">
+            <label for="name">name</label><input id="name" name="name" type="text" placeholder="logo_euro OU flag_pays">
+            <label for="lien">lien</label><input id="lien" name="lien" type="text" placeholder="logo_euro OU flag_pays">
             <br>
             <input type="submit" value="Valider">
         </form>

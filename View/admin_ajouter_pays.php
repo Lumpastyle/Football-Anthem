@@ -18,7 +18,7 @@ if(count($_POST) === 0) {
         <h1>Ajouter un Pays</h1>
 
         <form action="" method="post">
-            <label for="name">name</label><input id="name" name="name" type="text" placeholder="">
+            <label for="name">name</label><input id="name" name="name" type="text" placeholder="France">
             <label for="id_hymne">id_hymne</label>
             <select name="id_hymne">
 <?php foreach($hymne as $data):?>
@@ -26,11 +26,11 @@ if(count($_POST) === 0) {
 <?php endforeach;?>
             </select>
             <br>
-            <label for="nb_euro">nb_euro</label><input id="nb_euro" name="nb_euro" type="text" placeholder="">
-            <label for="nb_world">nb_world</label><input id="nb_world" name="nb_world" type="text" placeholder="">
-            <label for="win_euro">win_euro</label><input id="win_euro" name="win_euro" type="text" placeholder="">
-            <label for="win_world">win_world</label><input id="win_world" name="win_world" type="text" placeholder="">
-            <label for="description">description</label><textarea id="description" name="description" type="text" placeholder=""></textarea>
+            <label for="nb_euro">nb_euro</label><input id="nb_euro" name="nb_euro" type="text" placeholder="6">
+            <label for="nb_world">nb_world</label><input id="nb_world" name="nb_world" type="text" placeholder="2">
+            <label for="win_euro">win_euro</label><input id="win_euro" name="win_euro" type="text" placeholder="1">
+            <label for="win_world">win_world</label><input id="win_world" name="win_world" type="text" placeholder="0">
+            <label for="description">description</label><textarea id="description" name="description" type="text" placeholder="Pas de fautes pls !"></textarea>
             <label for="id_image">id_image</label>
             <select name="id_image">
 <?php foreach($image as $data):?>
