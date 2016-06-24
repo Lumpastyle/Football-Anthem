@@ -21,13 +21,6 @@ if(count($_POST) === 0) {
             <label for="name">name</label><input id="name" name="name" type="text" placeholder="">
             <label for="type">type</label><input id="type" name="type" type="text" placeholder="">
             <label for="date">date</label><input id="date" name="date" type="datetime" placeholder="">
-            <label for="id_participants">id_participants</label>
-            <select name="id_participants">
-<?php foreach($participants as $data):?>
-                <option value="<?=$data->id?>"><?=$data->name?></option>
-<?php endforeach;?>
-            </select>
-            <br>
             <label for="id_organisateur">id_organisateur</label>
             <select name="id_organisateur">
 <?php foreach($pays as $data):?>

@@ -3,8 +3,7 @@
 /**
  * Created by PhpStorm.
  * User: Lumi
- * Date: 16/06/2016
- * Time: 14:34
+ * Date: 21/06/2016
  */
 
 namespace Model;
@@ -15,6 +14,7 @@ class PageRepository
      * @var \PDO
      */
     private $PDO;
+
     /**
      * PageRepository constructor.
      * @param \PDO $PDO
@@ -24,10 +24,10 @@ class PageRepository
         $this->PDO = $PDO;
     }
 
-
     /**
      * @param $id
-     * @return \stdClass|bool
+     * @param $type
+     * @return bool|mixed
      */
     public function get($id, $type)
     {
@@ -56,7 +56,6 @@ class PageRepository
                     `name`,
                     `type`,
                     `date`,
-                    `id_participants`,
                     `id_organisateur`,
                     `id_podium`,
                     `id_hymne`,
@@ -132,16 +131,16 @@ class PageRepository
     public function modifier($id, $data)
     {
         $sql ="UPDATE
-                  `livre_or`
+                  `xxx`
                SET
-                  `message` = :message
+                  `champ` = :champ
                 WHERE
                   `id` = :id
                 LIMIT
                   1
                 ";
         $stmt = $this->PDO->prepare($sql);
-        $stmt->bindParam(':message',$data->message,\PDO::PARAM_STR);
+        $stmt->bindParam(':champ',$data->champ,\PDO::PARAM_STR);
         $stmt->bindParam(':id',$id,\PDO::PARAM_STR);
         $stmt->execute();
 
@@ -182,7 +181,6 @@ class PageRepository
                       `name`,
                       `type`,
                       `date`,
-                      `id_participants`,
                       `id_organisateur`,
                       `id_podium`,
                       `id_hymne`,
@@ -206,7 +204,6 @@ class PageRepository
         $stmt->bindParam(':name',$data->name,\PDO::PARAM_STR);
         $stmt->bindParam(':type',$data->type,\PDO::PARAM_STR);
         $stmt->bindParam(':date',$data->date,\PDO::PARAM_STR);
-        $stmt->bindParam(':id_participants',$data->id_participants,\PDO::PARAM_STR);
         $stmt->bindParam(':id_organisateur',$data->id_organisateur,\PDO::PARAM_STR);
         $stmt->bindParam(':id_podium',$data->id_podium,\PDO::PARAM_STR);
         $stmt->bindParam(':id_hymne',$data->id_hymne,\PDO::PARAM_STR);
@@ -218,9 +215,9 @@ class PageRepository
     }
 
     /**
- * @param array $data
- * @return int
- */
+     * @param array $data
+     * @return int
+     */
     public function insererPays($data)
     {
         $sql ="INSERT INTO
@@ -400,7 +397,6 @@ class PageRepository
                     `name`,
                     `type`,
                     `date`,
-                    `id_participants`,
                     `id_organisateur`,
                     `id_podium`,
                     `id_hymne`,

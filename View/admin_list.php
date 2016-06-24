@@ -19,7 +19,6 @@
                     <th>name</th>
                     <th>type</th>
                     <th>date</th>
-                    <th>id_participants</th>
                     <th>id_organisateur</th>
                     <th>id_podium</th>
                     <th>id_hymne</th>
@@ -29,7 +28,7 @@
                 </tr>
                 <?php if (count($compe) == 0 ):?>
                     <tr>
-                        <td colspan="11">
+                        <td colspan="10">
                             Pas de data
                         </td>
                     </tr>
@@ -48,7 +47,6 @@
                             <td>Coupe du monde</td>
                         <?php } ?>
                         <td><?=$data->date?></td>
-                        <td><?=$data->id_participants?></td>
                         <td><?=$data->id_organisateur?></td>
                         <td><?=$data->id_podium?></td>
                         <td><?=$data->id_hymne?></td>
