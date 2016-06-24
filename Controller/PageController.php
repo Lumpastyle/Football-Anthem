@@ -3,8 +3,7 @@
 /**
  * Created by PhpStorm.
  * User: Lumi
- * Date: 16/06/2016
- * Time: 14:32
+ * Date: 21/06/2016
  */
 
 namespace Controller;
@@ -28,7 +27,6 @@ class PageController
         switch($type){
             case 'competition':
                 $pays = $this->repository->findAllPays();
-                $participants = $this->repository->findAllParticipants();
                 $podium = $this->repository->findAllPodium();
                 $hymne = $this->repository->findAllHymne();
                 $image = $this->repository->findAllImage();
@@ -41,7 +39,6 @@ class PageController
                         'name' => $_POST['name'],
                         'type' => $_POST['type'],
                         'date' => $_POST['date'],
-                        'id_participants' => $_POST['id_participants'],
                         'id_organisateur' => $_POST['id_organisateur'],
                         'id_podium' => $_POST['id_podium'],
                         'id_hymne' => $_POST['id_hymne'],
@@ -90,6 +87,7 @@ class PageController
                 }
                 break;
             case 'participants':
+                $competition = $this->repository->findAllCompetition();
                 $pays = $this->repository->findAllPays();
                 require "View/admin_ajouter_participants.php";
                 if(count($_POST) === 0) {
