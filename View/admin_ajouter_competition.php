@@ -28,13 +28,6 @@ if(count($_POST) === 0) {
 <?php endforeach;?>
             </select>
             <br>
-            <label for="id_podium">id_podium</label>
-            <select name="id_podium">
-<?php foreach($podium as $data):?>
-                <option value="<?=$data->id?>"><?=$data->name?></option>
-<?php endforeach;?>
-            </select>
-            <br>
             <label for="id_hymne">id_hymne</label>
             <select name="id_hymne">
 <?php foreach($hymne as $data):?>

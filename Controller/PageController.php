@@ -27,7 +27,6 @@ class PageController
         switch($type){
             case 'competition':
                 $pays = $this->repository->findAllPays();
-                $podium = $this->repository->findAllPodium();
                 $hymne = $this->repository->findAllHymne();
                 $image = $this->repository->findAllImage();
                 require "View/admin_ajouter_competition.php";
@@ -40,7 +39,6 @@ class PageController
                         'type' => $_POST['type'],
                         'date' => $_POST['date'],
                         'id_organisateur' => $_POST['id_organisateur'],
-                        'id_podium' => $_POST['id_podium'],
                         'id_hymne' => $_POST['id_hymne'],
                         'id_image' => $_POST['id_image'],
                         'description' => $_POST['description']
@@ -105,6 +103,7 @@ class PageController
                 }
                 break;
             case 'podium':
+                $competition = $this->repository->findAllCompetition();
                 $pays = $this->repository->findAllPays();
                 require "View/admin_ajouter_podium.php";
                 if(count($_POST) === 0) {
@@ -113,6 +112,7 @@ class PageController
                     // traitement de la requete
                     $new = (object) array(
                         'name' => $_POST['name'],
+                        'id_competition' => $_POST['id_competition'],
                         'id_winner' => $_POST['id_winner'],
                         'id_second' => $_POST['id_second'],
                         'id_semi_1' => $_POST['id_semi_1'],
