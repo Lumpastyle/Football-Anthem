@@ -28,7 +28,8 @@
             <br>
             <label for="">Pays participants</label>
             <?php foreach($pays as $data):?>
-                <input type="checkbox" name="id_pays[]" id="<?=$data->id?>" value="<?=$data->name?>"><?=$data->name?>
+                <input type="checkbox" name="id_pays[]" id="<?=$data->id?>" value="<?=$data->id?>">
+                <label for="<?=$data->id?>"><?=$data->name?></label>
             <?php endforeach;?>
             <br>
             <input type="submit" value="Valider">
