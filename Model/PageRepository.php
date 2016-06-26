@@ -57,7 +57,6 @@ class PageRepository
                     `type`,
                     `date`,
                     `id_organisateur`,
-                    `id_podium`,
                     `id_hymne`,
                     `id_image`,
                     `description`
@@ -182,7 +181,6 @@ class PageRepository
                       `type`,
                       `date`,
                       `id_organisateur`,
-                      `id_podium`,
                       `id_hymne`,
                       `id_image`,
                       `description`
@@ -192,9 +190,7 @@ class PageRepository
                     :name,
                     :type,
                     :date,
-                    :id_participants,
                     :id_organisateur,
-                    :id_podium,
                     :id_hymne,
                     :id_image,
                     :description
@@ -205,7 +201,6 @@ class PageRepository
         $stmt->bindParam(':type',$data->type,\PDO::PARAM_STR);
         $stmt->bindParam(':date',$data->date,\PDO::PARAM_STR);
         $stmt->bindParam(':id_organisateur',$data->id_organisateur,\PDO::PARAM_STR);
-        $stmt->bindParam(':id_podium',$data->id_podium,\PDO::PARAM_STR);
         $stmt->bindParam(':id_hymne',$data->id_hymne,\PDO::PARAM_STR);
         $stmt->bindParam(':id_image',$data->id_image,\PDO::PARAM_STR);
         $stmt->bindParam(':description',$data->description,\PDO::PARAM_STR);
@@ -305,24 +300,27 @@ class PageRepository
         $sql ="INSERT INTO
                 `podium`
                 (
-                      `id_winner`,
                       `name`,
+                      `id_competition`,
+                      `id_winner`,
                       `id_second`,
                       `id_semi_1`,
                       `id_semi_2`
                 )
                 VALUES
                 (
-                    :id_winner,
                     :name,
+                    :id_competition,
+                    :id_winner,
                     :id_second,
                     :id_semi_1,
                     :id_semi_2
                 )
                 ";
         $stmt = $this->PDO->prepare($sql);
-        $stmt->bindParam(':id_winner',$data->id_winner,\PDO::PARAM_STR);
         $stmt->bindParam(':name',$data->name,\PDO::PARAM_STR);
+        $stmt->bindParam(':id_competition',$data->id_winner,\PDO::PARAM_STR);
+        $stmt->bindParam(':id_winner',$data->id_winner,\PDO::PARAM_STR);
         $stmt->bindParam(':id_second',$data->id_second,\PDO::PARAM_STR);
         $stmt->bindParam(':id_semi_1',$data->id_semi_1,\PDO::PARAM_STR);
         $stmt->bindParam(':id_semi_2',$data->id_semi_2,\PDO::PARAM_STR);
@@ -398,7 +396,6 @@ class PageRepository
                     `type`,
                     `date`,
                     `id_organisateur`,
-                    `id_podium`,
                     `id_hymne`,
                     `id_image`,
                     `description`
@@ -483,6 +480,7 @@ class PageRepository
         $sql ="SELECT
                     `id`,
                     `name`,
+                    `id_competition`,
                     `id_winner`,
                     `id_second`,
                     `id_semi_1`,

@@ -20,7 +20,6 @@
                     <th>type</th>
                     <th>date</th>
                     <th>id_organisateur</th>
-                    <th>id_podium</th>
                     <th>id_hymne</th>
                     <th>id_image</th>
                     <th>description</th>
@@ -28,7 +27,7 @@
                 </tr>
                 <?php if (count($compe) == 0 ):?>
                     <tr>
-                        <td colspan="10">
+                        <td colspan="9">
                             Pas de data
                         </td>
                     </tr>
@@ -48,7 +47,6 @@
                         <?php } ?>
                         <td><?=$data->date?></td>
                         <td><?=$data->id_organisateur?></td>
-                        <td><?=$data->id_podium?></td>
                         <td><?=$data->id_hymne?></td>
                         <td><?=$data->image?></td>
                         <td><?=$data->description?></td>
@@ -181,6 +179,7 @@
                 <tr>
                     <th>id</th>
                     <th>name</th>
+                    <th>id_competition</th>
                     <th>id_winner</th>
                     <th>id_second</th>
                     <th>id_semi_1</th>
@@ -189,7 +188,7 @@
                 </tr>
                 <?php if (count($podium) == 0 ):?>
                     <tr>
-                        <td colspan="7">
+                        <td colspan="8">
                             Pas de data
                         </td>
                     </tr>
@@ -198,6 +197,7 @@
                     <tr>
                         <td><?=$data->id?></td>
                         <td><?=$data->name?></td>
+                        <td><?=$data->id_competition?></td>
                         <td><?=$data->id_winner?></td>
                         <td><?=$data->id_second?></td>
                         <td><?=$data->id_semi_1?></td>
