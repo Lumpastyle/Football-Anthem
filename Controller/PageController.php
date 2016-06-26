@@ -92,7 +92,7 @@ class PageController
                     // ne rien faire
                 } else {
                     // traitement de la requete
-                    foreach($_POST['id_pays[]'] as $data){
+                    foreach($_POST['id_pays'] as $data){
                         $new = (object) array(
                             'name' => $_POST['name'],
                             'id_competition' => $_POST['id_competition'],

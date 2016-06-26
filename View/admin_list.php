@@ -47,8 +47,12 @@
                         <?php } ?>
                         <td><?=$data->date?></td>
                         <td><?=$data->id_organisateur?></td>
-                        <td><?=$data->id_hymne?></td>
-                        <td><?=$data->image?></td>
+                        <td><?php if($data->id_hymne == "107"){
+                                echo "Aucun";
+                            } else {
+                                echo $data->id_hymne;
+                            }?></td>
+                        <td><?=$data->id_image?></td>
                         <td><?=$data->description?></td>
                         <td class="action">
                             <a class="modifier" href="?a=modifier&id=<?=$data->id?>&type=competition">Edit</a>
