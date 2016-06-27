@@ -19,6 +19,13 @@
 
         <form action="" method="post">
             <label for="name">name</label><input id="name" name="name" type="text" placeholder="">
+            <label for="id_competition">id_competition</label>
+            <select name="id_competition">
+                <?php foreach($compe as $data):?>
+                    <option value="<?=$data->id?>"><?=$data->name?></option>
+                <?php endforeach;?>
+            </select>
+            <br>
             <label for="id_winner">id_winner</label>
             <select name="id_winner">
                 <?php foreach($pays as $data):?>
