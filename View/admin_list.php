@@ -249,6 +249,43 @@
             <a class="ajouter" href="index.php?a=ajouter&type=participants">Ajouter une nouvelle liste de participants</a>
             <br>
 
+            <h2>Questions</h2>
+
+            <table>
+                <tr>
+                    <th>id</th>
+                    <th>question</th>
+                    <th>reponse_1</th>
+                    <th>reponse_2</th>
+                    <th>reponse_3</th>
+                    <th>bonne_reponse</th>
+                    <th class="action">Actions</th>
+                </tr>
+                <?php if (count($quizz) == 0 ):?>
+                    <tr>
+                        <td colspan="7">
+                            Pas de data
+                        </td>
+                    </tr>
+                <?php endif;?>
+                <?php foreach($quizz as $data):?>
+                    <tr>
+                        <td><?=$data->id?></td>
+                        <td><?=$data->question?></td>
+                        <td><?=$data->reponse_1?></td>
+                        <td><?=$data->reponse_2?></td>
+                        <td><?=$data->reponse_3?></td>
+                        <td><?=$data->bonne_reponse?></td>
+                        <td class="action">
+                            <a class="modifier" href="?a=modifier&id=<?=$data->id?>&type=participants">Edit</a>
+                            <a class="supprimer" href="?a=supprimer&id=<?=$data->id?>&type=participants">Delete</a>
+                        </td>
+                    </tr>
+                <?php endforeach;?>
+            </table>
+            <a class="ajouter" href="index.php?a=ajouter&type=quizz">Ajouter une nouvelle question</a>
+            <br>
+
         </div>
     </body>
 </html>

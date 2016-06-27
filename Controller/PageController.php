@@ -134,6 +134,36 @@ class PageController
                     $this->repository->insererImage($new);
                 }
                 break;
+            case 'quizz':
+                require "View/admin_ajouter_quizz.php";
+                if(count($_POST) === 0) {
+                    // ne rien faire
+                } else {
+                    // traitement de la requete
+                    $new = (object) array(
+                        'quizz' => $_POST['quizz'],
+                        'reponse_1' => $_POST['reponse_1'],
+                        'reponse_2' => $_POST['reponse_2'],
+                        'reponse_3' => $_POST['reponse_3'],
+                        'bonne_reponse' => $_POST['bonne_reponse']
+                    );
+                    $this->repository->insererQuizz($new);
+                }
+                break;
+            case 'populaire':
+                require "View/admin_ajouter_populaire.php";
+                if(count($_POST) === 0) {
+                    // ne rien faire
+                } else {
+                    // traitement de la requete
+                    $new = (object) array(
+                        'name' => $_POST['name'],
+                        'description' => $_POST['description'],
+                        'audio' => $_POST['audio']
+                    );
+                    $this->repository->insererQuizz($new);
+                }
+                break;
             default:
                 return false;
         }
@@ -177,6 +207,8 @@ class PageController
         $participants = $this->repository->findAllParticipants();
         $podium = $this->repository->findAllPodium();
         $image = $this->repository->findAllImage();
+        $quizz = $this->repository->findAllQuizz();
+        $populaire = $this->repository->findAllPopulaire();
         // afficher les donnees
         include "View/admin_list.php";
     }

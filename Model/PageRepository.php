@@ -41,6 +41,12 @@ class PageRepository
             case 'hymne':
                 return $this->getHymneById($id);
                 break;
+            case 'quizz':
+                return $this->getQuizzById($id);
+                break;
+            case 'populaire':
+                return $this->getPopulaireById($id);
+                break;
             default:
                 return false;
         }
@@ -112,6 +118,52 @@ class PageRepository
                     `audio`
                 FROM
                     `hymne`
+                WHERE
+                    `id` = :id
+                ";
+        $stmt = $this->PDO->prepare($sql);
+        $stmt->bindParam(':id',$id,\PDO::PARAM_INT);
+        $stmt->execute();
+
+        return $stmt->fetchObject();
+    }
+
+    /**
+     * @param $id
+     * @return mixed
+     */
+    public function getQuizzById($id){
+        $sql ="SELECT
+                    `id`,
+                    `question`,
+                    `reponse_1`,
+                    `reponse_2`,
+                    `reponse_3`,
+                    `bonne_reponse`
+                FROM
+                    `quizz`
+                WHERE
+                    `id` = :id
+                ";
+        $stmt = $this->PDO->prepare($sql);
+        $stmt->bindParam(':id',$id,\PDO::PARAM_INT);
+        $stmt->execute();
+
+        return $stmt->fetchObject();
+    }
+
+    /**
+     * @param $id
+     * @return mixed
+     */
+    public function getPopulaireById($id){
+        $sql ="SELECT
+                    `id`,
+                    `name`,
+                    `description`,
+                    `audio`
+                FROM
+                    `populaire`
                 WHERE
                     `id` = :id
                 ";
@@ -386,6 +438,72 @@ class PageRepository
     }
 
     /**
+     * @param array $data
+     * @return int
+     */
+    public function insererQuizz($data)
+    {
+        $sql ="INSERT INTO
+                `quizz`
+                (
+                      `question`,
+                      `reponse_1`,
+                      `reponse_2`,
+                      `reponse_3`,
+                      `bonne_reponse`
+                )
+                VALUES
+                (
+                    :question,
+                    :reponse_1,
+                    :reponse_2,
+                    :reponse_3,
+                    :bonne_reponse
+                )
+                ";
+
+        $stmt = $this->PDO->prepare($sql);
+        $stmt->bindParam(':question',$data->name,\PDO::PARAM_STR);
+        $stmt->bindParam(':reponse_1',$data->id_competition,\PDO::PARAM_STR);
+        $stmt->bindParam(':reponse_2',$data->id_competition,\PDO::PARAM_STR);
+        $stmt->bindParam(':reponse_3',$data->id_competition,\PDO::PARAM_STR);
+        $stmt->bindParam(':bonne_reponse',$data->id_pays,\PDO::PARAM_STR);
+        $stmt->execute();
+
+        return 1;
+    }
+
+    /**
+     * @param array $data
+     * @return int
+     */
+    public function insererPopulaire($data)
+    {
+        $sql ="INSERT INTO
+                `quizz`
+                (
+                      `name`,
+                      `description`,
+                      `audio`
+                )
+                VALUES
+                (
+                    :name,
+                    :description,
+                    :audio
+                )
+                ";
+
+        $stmt = $this->PDO->prepare($sql);
+        $stmt->bindParam(':name',$data->name,\PDO::PARAM_STR);
+        $stmt->bindParam(':description',$data->id_competition,\PDO::PARAM_STR);
+        $stmt->bindParam(':audio',$data->id_competition,\PDO::PARAM_STR);
+        $stmt->execute();
+
+        return 1;
+    }
+
+    /**
      * @return array
      */
     public function findAllCompetition()
@@ -514,4 +632,45 @@ class PageRepository
         return $stmt->fetchAll(\PDO::FETCH_OBJ);
     }
 
+    /**
+     * @return array
+     */
+    public function findAllQuizz()
+    {
+        $sql ="SELECT
+                    `id`,
+                    `question`,
+                    `reponse_1`,
+                    `reponse_2`,
+                    `reponse_3`,
+                    `bonne_reponse`
+                FROM
+                    `quizz`
+                ";
+
+        $stmt = $this->PDO->prepare($sql);
+        $stmt->execute();
+
+        return $stmt->fetchAll(\PDO::FETCH_OBJ);
+    }
+
+    /**
+     * @return array
+     */
+    public function findAllPopulaire()
+    {
+        $sql ="SELECT
+                    `id`,
+                    `name`,
+                    `description`,
+                    `audio`
+                FROM
+                    `populaire`
+                ";
+
+        $stmt = $this->PDO->prepare($sql);
+        $stmt->execute();
+
+        return $stmt->fetchAll(\PDO::FETCH_OBJ);
+    }
 }
