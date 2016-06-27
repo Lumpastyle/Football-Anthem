@@ -19,7 +19,14 @@
 
         <form action="" method="post">
             <label for="name">name</label><input id="name" name="name" type="text" placeholder="">
-            <label for="description">description</label><input id="description" name="description" type="text" placeholder="">
+            <label for="id_competition">id_competition</label>
+            <select name="id_competition">
+                <?php foreach($competition as $data):?>
+                    <option value="<?=$data->id?>"><?=$data->name?></option>
+                <?php endforeach;?>
+            </select>
+            <br>
+            <label for="description">description</label><input id="description" name="description" type="text" placeholder="Chanteur, 2001">
             <label for="audio">audio</label><input id="audio" name="audio" type="text" placeholder="">
             <br>
             <input type="submit" value="Valider">
