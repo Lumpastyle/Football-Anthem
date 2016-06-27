@@ -160,6 +160,7 @@ class PageRepository
         $sql ="SELECT
                     `id`,
                     `name`,
+                    `id_competition`,
                     `description`,
                     `audio`
                 FROM
@@ -463,11 +464,11 @@ class PageRepository
                 ";
 
         $stmt = $this->PDO->prepare($sql);
-        $stmt->bindParam(':question',$data->name,\PDO::PARAM_STR);
-        $stmt->bindParam(':reponse_1',$data->id_competition,\PDO::PARAM_STR);
-        $stmt->bindParam(':reponse_2',$data->id_competition,\PDO::PARAM_STR);
-        $stmt->bindParam(':reponse_3',$data->id_competition,\PDO::PARAM_STR);
-        $stmt->bindParam(':bonne_reponse',$data->id_pays,\PDO::PARAM_STR);
+        $stmt->bindParam(':question',$data->question,\PDO::PARAM_STR);
+        $stmt->bindParam(':reponse_1',$data->reponse_1,\PDO::PARAM_STR);
+        $stmt->bindParam(':reponse_2',$data->reponse_2,\PDO::PARAM_STR);
+        $stmt->bindParam(':reponse_3',$data->reponse_3,\PDO::PARAM_STR);
+        $stmt->bindParam(':bonne_reponse',$data->bonne_reponse,\PDO::PARAM_STR);
         $stmt->execute();
 
         return 1;
@@ -483,12 +484,14 @@ class PageRepository
                 `quizz`
                 (
                       `name`,
+                      `id_competition`,
                       `description`,
                       `audio`
                 )
                 VALUES
                 (
                     :name,
+                    :id_competition,
                     :description,
                     :audio
                 )
@@ -496,8 +499,9 @@ class PageRepository
 
         $stmt = $this->PDO->prepare($sql);
         $stmt->bindParam(':name',$data->name,\PDO::PARAM_STR);
-        $stmt->bindParam(':description',$data->id_competition,\PDO::PARAM_STR);
-        $stmt->bindParam(':audio',$data->id_competition,\PDO::PARAM_STR);
+        $stmt->bindParam(':id_competition',$data->id_competition,\PDO::PARAM_STR);
+        $stmt->bindParam(':description',$data->description,\PDO::PARAM_STR);
+        $stmt->bindParam(':audio',$data->audio,\PDO::PARAM_STR);
         $stmt->execute();
 
         return 1;

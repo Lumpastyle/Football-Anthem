@@ -151,6 +151,7 @@ class PageController
                 }
                 break;
             case 'populaire':
+                $competition = $this->repository->findAllCompetition();
                 require "View/admin_ajouter_populaire.php";
                 if(count($_POST) === 0) {
                     // ne rien faire
@@ -158,6 +159,7 @@ class PageController
                     // traitement de la requete
                     $new = (object) array(
                         'name' => $_POST['name'],
+                        'id_competition' => $_POST['id_competition'],
                         'description' => $_POST['description'],
                         'audio' => $_POST['audio']
                     );
