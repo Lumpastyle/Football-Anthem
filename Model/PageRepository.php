@@ -481,7 +481,7 @@ class PageRepository
     public function insererPopulaire($data)
     {
         $sql ="INSERT INTO
-                `quizz`
+                `populaire`
                 (
                       `name`,
                       `id_competition`,

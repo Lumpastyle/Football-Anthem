@@ -141,7 +141,7 @@ class PageController
                 } else {
                     // traitement de la requete
                     $new = (object) array(
-                        'quizz' => $_POST['quizz'],
+                        'question' => $_POST['question'],
                         'reponse_1' => $_POST['reponse_1'],
                         'reponse_2' => $_POST['reponse_2'],
                         'reponse_3' => $_POST['reponse_3'],
@@ -163,7 +163,7 @@ class PageController
                         'description' => $_POST['description'],
                         'audio' => $_POST['audio']
                     );
-                    $this->repository->insererQuizz($new);
+                    $this->repository->insererPopulaire($new);
                 }
                 break;
             default:

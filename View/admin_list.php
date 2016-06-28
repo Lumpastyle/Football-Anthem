@@ -1,12 +1,6 @@
-<!DOCTYPE html>
-<html lang="fr">
-    <head>
-        <meta charset="UTF-8">
-        <title>Base de données - Projet Football</title>
-        <link href="../assets/css/style.css" rel="stylesheet">
-    </head>
-
-    <body>
+<?php
+$title = "Dashboard - Liste des tables";
+include_once 'header.php' ?>
         <div class="inner">
 
             <h1>Liste des tables</h1>
@@ -286,6 +280,41 @@
             <a class="ajouter" href="index.php?a=ajouter&type=quizz">Ajouter une nouvelle question</a>
             <br>
 
+
+            <h2>Populaire</h2>
+
+            <table>
+                <tr>
+                    <th>id</th>
+                    <th>name</th>
+                    <th>id_competition</th>
+                    <th>description</th>
+                    <th>audio</th>
+                    <th class="action">Actions</th>
+                </tr>
+                <?php if (count($populaire) == 0 ):?>
+                    <tr>
+                        <td colspan="6">
+                            Pas de data
+                        </td>
+                    </tr>
+                <?php endif;?>
+                <?php foreach($populaire as $data):?>
+                    <tr>
+                        <td><?=$data->id?></td>
+                        <td><?=$data->name?></td>
+                        <td><?=$data->id_competition?></td>
+                        <td><?=$data->description?></td>
+                        <td><?=$data->audio?></td>
+                        <td class="action">
+                            <a class="modifier" href="?a=modifier&id=<?=$data->id?>&type=participants">Edit</a>
+                            <a class="supprimer" href="?a=supprimer&id=<?=$data->id?>&type=participants">Delete</a>
+                        </td>
+                    </tr>
+                <?php endforeach;?>
+            </table>
+            <a class="ajouter" href="index.php?a=ajouter&type=populaire">Ajouter une nouvelle question</a>
+            <br>
+
         </div>
-    </body>
-</html>
+<?php include_once 'footer.php' ?>

@@ -1,12 +1,7 @@
-<!DOCTYPE html>
-<html lang="fr">
-    <head>
-        <meta charset="UTF-8">
-        <title>Ajouter une Compétition</title>
-        <link href="../assets/css/style.css" rel="stylesheet">
-    </head>
+<?php
+$title = "Ajouter une Compétition";
+include_once 'header.php' ?>
 
-    <body>
         <div class="inner">
 
 <?php
@@ -60,5 +55,4 @@ if(count($_POST) === 0) {
 
 }?>
         </div>
-    </body>
-</html>
+<?php include_once 'footer.php' ?>

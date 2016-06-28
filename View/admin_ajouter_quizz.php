@@ -1,12 +1,7 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <title>Ajouter une question</title>
-    <link href="../assets/css/style.css" rel="stylesheet">
-</head>
+<?php
+$title = "Ajouter une Question";
+include_once 'header.php' ?>
 
-<body>
 <div class="inner">
 
     <?php
@@ -40,5 +35,5 @@
 
     }?>
 </div>
-</body>
-</html>
+
+<?php include_once 'footer.php' ?>
