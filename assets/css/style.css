@@ -1,121 +1,1453 @@
-body {
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+/*--------------------------------------------------------- Body -----------------------------------------------------------*/
+
+@font-face {
+	font-family: 'DaStreets';
+	src: url('../fonts/DaStreets.ttf');
 }
 
-.inner {
+@font-face {
+	font-family: 'GothamBlack';
+	src: url('../fonts/Gotham-Black.ttf');
+}
+
+@font-face {
+	font-family: 'GothamBold';
+	src: url('../fonts/Gotham-Bold.ttf');
+	src: url('../fonts/Gotham-Bold.otf') format('truetype');
+}
+
+@font-face {
+	font-family: 'GothamMedium';
+	src: url('../fonts/Gotham-Medium.ttf');
+	src: url('../fonts/Gotham-Medium.otf') format('truetype');
+}
+
+@font-face {
+	font-family: 'GothamExtraLight';
+	src: url('../fonts/Gotham-Extralight.ttf');
+}
+
+body{
+	margin: 0;
+	height: 100%;
+	width: 100%;
+	box-sizing: border-box;
+	font-family: 'GothamExtraLight' !important;
+	color: #07152E !important;
+	min-width: 320px;
+	background-color: #07152E;
+	letter-spacing: 1px;
+	min-height: 550px;
+}
+
+a{
+	text-decoration: none;
+	text-transform: uppercase;
+	color: #fff;
+	cursor: pointer;
+}
+
+.calltoaction{
+	font-family: 'GothamBold';
+	border: 1px solid #FFFB00;
+	padding: 18px 51px;
+	border-radius: 30px;
+	color: #FFFB00;
+}
+
+.active{
+	color: #FFFB00;
+}
+
+.hidden{
+	visibility: hidden;
+}
+
+.visible{
+	visibility: visible;
+}
+
+.none{
+	display: none;
+}
+
+.unscroll{
+	overflow-y: hidden;
+}
+
+#filtre_anim{
+    width: 100%;
+    height: 100%;
+    background: #000000;
+    opacity: 0.8;
+    position: fixed;
+    z-index: 1;
+    display: none;
+}
+
+
+/*---------------------------------------------------- Loading --------------------------------------------------------*/
+
+#loading{
+	background-image: url(../images/background.jpg);
+	background-size: cover;
+	background-position: center center;
+	background-repeat: no-repeat;
+	height: 100vh;
+}
+
+#loading .middle{
+	vertical-align: middle;
+}
+
+#loading #logo{
+	width: 400px;
+	margin: 0 auto;
+	display: block;
+	padding-top: 17%;
+	animation-duration: 3s;
+  	animation-delay: 0.5s;
+}
+
+#loading h2{
+	color: #fff;
+	text-align: center;
+	margin-top: 40px;
+	letter-spacing: 1px;
+	word-spacing: 1px;
+	font-family: 'GothamExtraLight';
+	animation-duration: 0.5s;
+  	animation-delay: 1.5s;
+}
+
+#loading #div-headphones{
+	animation-duration: 0.5s;
+  	animation-delay: 2.5s;
+}
+
+#loading #div-commencer{
+	animation-duration: 1s;
+  	animation-delay: 6.5s;
+}
+
+#loading #headphones{
+	margin: 0 auto;
+	display: block;
+	margin-top: 100px;
+	animation-duration: 1.5s;
+  	animation-delay: 3s;
+  	animation-iteration-count: infinite;
+}
+
+#loading p{
+	text-align: center;
+	font-size: 12px;
+	color: #fff;
+	width: 200px;
+	line-height: 15px;
+	margin: 20px auto 0 auto;
+}
+
+#loading a{
+	margin: -100px auto 0 auto;
+	display: table;
+}
+
+#loading a:hover{
+	color: #07152E;
+	background-color: #FFFB00;
+}
+
+
+/*---------------------------------------------------- Header et Nav --------------------------------------------------------*/
+
+body header{
+	padding: 15px 30px;
+	overflow: hidden;
+}
+
+body header h1{
+	width: 120px;
+	float: left;
+}
+
+body header h1 #logo{
+	width: 120px;
+}
+
+body header .main-nav ul{
+	float: right;
+	margin-top: 15px;
+}
+
+body header .main-nav ul li{
+	display: inline;
+	margin: 0 30px;
+}
+
+body header .main-nav ul li:last-child{
+	margin-right: 0px;
+}
+
+body header .main-nav ul li a{
+	font-family: 'GothamBlack';
+	font-size: 13px;
+}
+
+body header .main-nav ul li a:hover{
+	color: #FFFB00;
+}
+
+
+/*---------------------------------------------------- Page principal -------------------------------------------------------*/
+
+.year-nav{
+	position: fixed;
+    top: 50%;
+    left: 30px;
+    width: 21px;
+    height: 200px;
+    margin: -100px 0 0 0;
+
+}
+
+.year-nav .prev, .year-nav .next{
+	position: absolute;
+    width: 100%;
+    height: 50%;
+    cursor: pointer;
+}
+
+.year-nav .prev .year, .year-nav .next .year{
+	position: absolute;
+    font-family: 'GothamMedium';
+    font-size: 14px;
+    color: #bbb;
+    letter-spacing: -0.2px;
+    left: -5px;
     text-align: center;
-    max-width: 1280px;
-    margin: 0 auto;
-}
-
-a {
-    text-decoration: none;
-    color: black;
-}
-
-h1 {
-    text-align: center;
-}
-
-table {
-    margin: 0 auto;
-    border-collapse: collapse;
-}
-
-th, td {
-    border: 1px solid lightgrey;
-    width: 200px;
-    height: 50px;
-    text-align: center;
-}
-
-th {
-    background-color: dimgrey;
-    color: white;
-}
-
-.action {
-    width: 325px;
-}
-
-.modifier, .supprimer, .publier, .ajouter, .link{
-    font-size: 12px;
     text-transform: uppercase;
-    padding: 5px 10px;
-    margin: 0 5px;
-    border-radius: 4px;
-    transition: all 0.3s ease-in-out;
 }
 
-.modifier {
-    border: 1px solid lightgreen;
-    color: lightgreen;
-}
-.modifier:hover {
-    background-color: lightgreen;
-    color: black;
-}
-
-.supprimer {
-    border: 1px solid lightcoral;
-    color: lightcoral;
+.year-nav .prev .circle, .year-nav .next .circle{
+	position: absolute;
+    margin: -8.5px 0 0 0;
+    z-index: 1;
+    border-radius: 50%;
+	width: 7px;
+	height: 7px; 
+	background-color: #FFFB00;
 }
 
-.supprimer:hover {
-    background-color: lightcoral;
-    color: black;
+.year-nav .prev .line, .year-nav .next .line{
+	position: absolute;
+    width: 1px;
+    height: 35px;
+    margin: 0 0 0 -1px;
+    background: #FFFB00;
+    opacity: 0.5;
+    -webkit-transform: translateZ(0);
 }
 
-.publier {
-    border: 1px solid lightskyblue;
-    color: lightskyblue;
+.year-nav .prev .line-hover, .year-nav .next .line-hover {
+    height: 0;
+    background: rgba(255,255,255,1);
+    -webkit-transform: translateZ(0);
+    transition: 0.2s ease-in-out;
+    -webkit-transition: 0.2s ease-in-out;
+    -moz-transition: 0.2s ease-in-out;
+    -o-transition: 0.2s ease-in-out;
 }
 
-.publier:hover {
-    background-color: lightskyblue;
-    color: black;
+.year-nav .prev{
+    top: 0;
+    left: 0;
 }
 
-.ajouter {
-    display: inline-block;
-    margin: 15px 0;
-    border: 1px solid lightsalmon;
-    color: lightsalmon;
+.year-nav .prev .year{
+    top: 10px;
 }
 
-.ajouter:hover {
-    background-color: lightsalmon;
-    color: black;
+.year-nav .prev .line{
+    bottom: 20px;
+    left: 50%;
 }
 
-.link {
-    display: inline-block;
-    margin: 15px 0;
-    border: 1px solid lightseagreen;
-    color: lightseagreen;
+.year-nav .prev .circle{
+    top: 40px;
+    left: 7px;
 }
 
-.link:hover {
-    background-color: lightseagreen;
-    color: black;
+.year-nav .next{
+    bottom: 0;
+    left: 0;
 }
 
-input, textarea {
+.year-nav .next .year{
+    bottom: 0;
+}
+
+.year-nav .next .line{
+    top: 20px;
+    left: 50%;
+}
+
+.year-nav .next .circle{
+    bottom: 30px;
+    left: 7px;
+}
+
+.year-nav .date{
+	position: absolute;
+	top: 45%;
+    left: -13px;
+    font-family: 'GothamMedium';
+    font-size: 20px;
+    color: #fff;
+    letter-spacing: -0.2px;
     text-align: center;
+    text-transform: uppercase;
+}
+
+.competitions{
+	width: 85%;
+	float: right;
+	margin-top: 60px;
+	position: relative;
+	height: 79.5vh;
+}
+
+.competitions .music{
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+.competitions .music h2{
+	font-family: 'GothamBlack';
+	color: #fff;
+	text-transform: uppercase;
+	font-size: 130px;
+	width: 70%;
+	line-height: 120px;
+}
+
+.competitions .music h3{
+	color: #fff;
+	text-transform: uppercase;
+	font-family: 'GothamBlack';
+	font-size: 14px;
+}
+
+.competitions .music .under-name{
+	border: none;
+	height: 1px;
+	background-color: #FFFB00;
+	width: 20px;
+	display: inline-block;
+}
+
+.competitions .music .calltoaction{
+	margin-top: 20px;
+	display: inline-block;
+}
+
+.competitions .music .calltoaction img{
+	width: 10px;
+	margin: 0 0 1px 10px;
+}
+
+.competitions .music .calltoaction:hover,
+.competitions #div-more-musics .calltoaction:hover{
+	background-color: #FFFB00;
+	color: #07152E;
+}
+
+.competitions .more-btns{
+	position: absolute;
+	bottom: 9%;
+	left: 0;
+}
+
+.competitions .more-btns .more-infos-btn{
+	margin-bottom: 10px;
+}
+
+.competitions .more-btns .circle{
+	width: 9px;
+	height: 9px;
+	border-radius: 50%;
+	background-color: #207AF6;
+	display: inline-block;
+	margin-right: 15px;
+}
+
+.competitions .more-btns a{
+	text-transform: none;
+	font-size: 13px;
+	letter-spacing: 1px;
+}
+
+.competitions .more-btns a:hover{
+	border-bottom: 1px solid #fff;
+	padding-bottom: 3px;
+}
+
+.competitions .music-desc{
+	width: 29%;
+	position: absolute;
+	bottom: 20%;
+	right: 3%;
+}
+
+.competitions .music-desc h4{
+	font-family: 'GothamBold';
+	text-transform: uppercase;
+	color: #fff;
+}
+
+.competitions .music-desc .under-music-desc{
+	border: none;
+	height: 1px;
+	background-color: #fff;
+	width: 20px;
+	display: inline-block;
+}
+
+.competitions .music-desc p{
+	font-family: 'GothamExtraLight';
+	color: #ACACAC;
+	font-size: 12px;
+	margin-top: 5px;
+}
+
+.competitions .music-desc a .share-fb{
+	width: 100px;
+	margin-top: 15px;
+}
+
+.competitions .portraits{
+	height: 100%;
+	position: absolute;
+	bottom: 0;
+	right: 45%;
+}
+
+.competitions .more-infos{
+	background-color: #fff;
+	width: 40%;
+	position: relative;
+	z-index: 100;
+	padding: 20px;
+	margin-top: -100px;
+	height: 70vh;
+	overflow: scroll;
+}
+
+.competitions .more-infos .cross{
+	position: absolute;
+	top: 15px;
+	right: 15px;
+}
+
+.competitions .more-infos .logo-competition{
+	display: block;
+	margin: 0 auto;
+	width: 70px;
+	padding: 30px;
+}
+
+.span{
+	color: #fff;
+	text-transform: uppercase;
+	text-align: center;
+	font-family: 'GothamBold';
+	background-color: #091C3E;
+	padding: 18px 51px;
+	border-radius: 30px;
+	font-size: 11px;
+	margin: 40px auto 30px auto;
+	display: table;
+}
+
+.competitions .more-infos .know hr,
+.competitions .more-infos .finalistes hr,
+.competitions .more-infos .participations hr{
+	margin-top: -55px;
+    border: none;
+    height: 1px;
+    background: #07152E;
+    margin-bottom: 100px;
+}
+
+.competitions .more-infos .participations .flags{
+	width: 330px;
+	margin: 0 auto;
+}
+
+.clip-circle {
+  	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+	clip: rect(0px,100px,200px,0px);
+	margin: 5px;
+}
+
+.competitions .more-infos .finalistes .winner-list{
+	display: inline-block;
+	margin: 0 38px 0 110px;
+}
+
+.competitions .more-infos .finalistes .winner-list img{
+	display: block;
+	margin: 0 auto;
+}
+
+.competitions .more-infos .finalistes .winner-list #winner{
+	text-transform: uppercase;
+	font-family: 'GothamBold';
+	font-size: 13px;
+	text-align: center;
+	margin-top: 15px;
+}
+
+.competitions .more-infos .finalistes ul{
+	margin: 40px auto;
+	display: inline-block;
+	width: 40%;
+}
+
+.competitions .more-infos .finalistes ul li{
+	font-family: 'GothamExtraLight';
+	font-size: 13px;
+	text-transform: uppercase;
+	margin-top: 10px;
+	line-height: 17px;
+}
+
+.competitions .more-infos .finalistes ul li span{
+	font-family: 'GothamBlack';
+	font-size: 12px;
+}
+
+.competitions .more-infos .know p{
+	font-size: 14px;
+	line-height: 21px;
+}
+
+.competitions .more-musics{
+	position: relative;
+	background-color: #07152E;
+	border: 2px solid #FFFB00;
+	height: 500px;
+	width: 500px;
+	border-radius: 50%;
+	z-index: 100;
+	left: 20%;
+	position: absolute;
+	top: -5%;
+}
+
+.competitions .more-musics .more-musics-title{
+	text-transform: uppercase;
+	color: #fff;
+	font-family: 'GothamBlack';
+	text-align: center;
+	font-size: 40px;
+	margin-top: 25%;
+}
+
+.competitions .more-musics .more-musics-artist{
+	color: #656565;
+	text-transform: uppercase;
+	text-align: center;
+	font-size: 17px;
+	font-family: 'GothamBold';
+	margin-top: 20px;
+}
+
+.competitions .more-musics .calltoaction{
+	display: table;
+	margin: 0 auto;
+	margin-top: 60px;
+}
+
+.competitions .more-musics .calltoaction img{
+	width: 10px;
+	margin: 0 0 1px 10px;
+}
+
+.competitions .more-musics .fb{
+	display: table;
+	margin: 0 auto;
+	margin-top: 20px;
+}
+
+.competitions .more-musics .cross{
+	position: absolute;
+	top: -20px;
+	right: 47%;
+	background-color: #FFFB00;
+	padding: 10px;
+	border-radius: 50%;
+}
+
+.competitions .more-musics .cross img{
+	width: 15px;
+}
+
+.competitions .music #arrow img{
+	width: 20px;
+}
+
+
+
+
+/*------------------------------------------------------- Dates ---------------------------------------------------*/
+
+.legends{
+	margin: 80px auto;
+	display: block;
+	width: 480px;
+}
+
+#legends-hr{
+	margin-top: -88px;
+    border: none;
+    height: 1px;
+    background: #fff;
+    margin-bottom: 100px;
+}
+
+.legends .legend{
+	display: inline-block;
+	padding: 0 30px;
+	background-color: #07152E;
+}
+
+.legends .legend .circle-blue,
+.legends .legend .circle-yellow{
+	width: 11px;
+	height: 11px;
+	border-radius: 50%;
+	background-color: #207AF6;
+	display: inline-block;
+	margin-right: 15px;
+}
+
+.legends .legend .circle-blue{
+	background-color: #207AF6;
+}
+
+.legends .legend .circle-yellow{
+	background-color: #FFFB00;
+}
+
+.legends .legend p{
+	color: #fff;
+	font-size: 13px;
+	display: inline-block;
+}
+
+.competitions-years ul{
+	margin: 0 auto;
+	display: block;
+	width: 95%;
+	text-align: center;
+}
+
+.competitions-years ul li{
+	display: inline-block;
+	margin: 45px 60px;
+}
+
+.competitions-years ul li a{
+	font-family: 'GothamBlack';
+	font-size: 30px;
+}
+
+.competitions-years ul li .blue{
+	color: #207AF6;
+}
+
+.competitions-years ul li .yellow{
+	color: #FFFB00;
+}
+
+.competitions-years ul li .blue:hover,
+.competitions-years ul li .yellow:hover{
+	color: #FFFFFF;
+}
+
+
+
+
+/*------------------------------------------------------- Map ----------------------------------------------------*/
+
+.map-popup{
+	position: absolute;
+	right: 0;
+	top: 0;
+	background-color: #fff;
+	width: 400px;
+	z-index: 300;
+	/*height: 100vh;*/
+	border: 1px solid #F9F9F9;
+	min-height: 100vh;
+}
+
+.map-popup hr{
+	margin-top: -55px;
+    border: none;
+    height: 1px;
+    background: #091C51;
+}
+
+.map-popup .clip-circle{
+	margin: 0 auto;
+	display: block;
+	padding: 30px 20px;
+}
+
+.map-popup h2{
+	color: #DDDDDD;
+	font-family: 'GothamBlack';
+	text-transform: uppercase;
+	font-size: 30px;
+	text-align: center;
+}
+
+.map-popup h3{
+	font-family: 'GothamExtraLight';
+	text-align: center;
+	font-size: 13px;
+	margin-top: 3px;
+}
+
+.map-popup .map-play{
+	display: table;
+	margin: 50px auto;
+}
+
+.map-popup .map-play .map-play-play{
+	width: 30px;
+	height: 30px;
+	display: inline-block;
+	background-color: #fff;
+	border-radius: 50%;
+    box-shadow: 2px 2px 4px #E4E4E4;
+}
+
+.map-popup .map-play .map-play-play:hover{
+	background-color: #E4E4E4;
+}
+
+.map-popup .map-play .map-play-play img{
+	width: 10px;
+	margin: 10px 0 0 12px;
+}
+
+.map-popup .map-play .map-play-artist{
+	display: inline-block;
+	font-size: 12px;
+	margin-left: 10px;
+}
+
+.map-popup .map-popup-desc{
+	font-size: 12px;
+	line-height: 20px;
+	padding: 0px 30px 30px 30px;
+}
+
+.map-popup .map-popup-participations{
+	width: 300px;
+	margin: 60px auto;
+}
+
+.map-popup .map-popup-participations .map-popup-one{
+	display: inline-block;
+	margin: 0 15px;
+}
+
+.map-popup .map-popup-participations .map-popup-one img{
+	width: 60px;
+	height: 60px;
+}
+
+.map-popup .map-popup-participations .map-popup-one span{
+	display: inline-block;
+	background-color: #207AF6;
+	color: #fff;
+	font-family: 'GothamBold';
+	font-size: 12px;
+    box-shadow: 2px 2px 4px #E4E4E4;
+    margin: 0 0 0 -35px;
+    border-radius: 50%;
+  	width: 30px;
+  	height: 30px;
+  	line-height: 30px;
+    text-align: center;
+}
+
+.map-popup .fb{
+	display: table;
+	margin: 0 auto 20px auto;
+	text-align: center;
+}
+
+.map-popup .cross{
+	position: fixed;
+	top: 10px;
+	right: 15px;
+}
+
+.cross img{
+	width: 20px;
+}
+
+#list-pays{
+	display: none;
+}
+
+#list-pays ul{
+	margin: 100px 0 0 40px;
+}
+
+#list-pays ul li{
+	margin-bottom: 35px;
+}
+
+#list-pays ul a span{
+	font-family: 'GothamBlack';
+	margin-left: 30px;
+	font-size: 20px;
+}
+
+#list-pays .clip-circle{
+	vertical-align: middle;
+}
+
+#list-pays{
+	display: none !important;
+}
+
+/*------------------------------------------------------- Quizz ----------------------------------------------------*/
+
+
+.goal-tracker{
+	display: block;
+    margin: 50px auto;
+    width: 140px;
+}
+
+.goal-tracker__content {
+  height: 100%;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  left: 0;
+  z-index: 500;
+}
+
+.quizz hr{
+	margin-top: -120px;
+    border: none;
+    height: 1px;
+    background: #fff;
+    margin-bottom: 140px;
+}
+
+.goal-tracker__data {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  height: 100%;
+  font-size: 40px;
+  line-height: 1;
+  text-align: center;
+  text-transform: uppercase;
+  color: #fff;
+  font-family: 'GothamBlack';
+}
+
+b.goal-tracker__signed {
+  font-size: 11px;
+  text-transform: uppercase;
+}
+
+.progress-circle {
+  border-radius: 50%;
+  display: inline-block;
+  width: 8.25em;
+  height: 8.25em;
+  overflow: hidden;
+  position: relative;
+  z-index: auto;
+}
+
+.progress-circle .outer {
+  background: #FFFB00;
+  width: 8.25em;
+  height: 8.25em;
+  overflow: hidden;
+  z-index: 100;
+}
+
+.progress-circle .outer .mask {
+  background: #FFFB00;
+  border-radius: 4.125em 0 0 4.125em;
+  position: absolute;
+  width: 4.125em;
+  height: 8.25em;
+  top: 0;
+  left: 0;
+  z-index: 120;
+}
+
+.progress-circle .outer .half {
+  box-sizing: border-box;
+  height: 8.25em;
+  position: absolute;
+  width: 4.125em;
+  height: 8.25em;
+  top: 0;
+  background: #E6E6E6;
+}
+
+.progress-circle .outer .half.spinner {
+  border-radius: 0 4.125em 4.125em 0;
+  right: 0;
+  -webkit-transform-origin: left center;
+          transform-origin: left center;
+  z-index: 110;
+}
+
+.progress-circle .outer .half.filler {
+  border-radius: 4.125em 0 0 4.125em;
+  left: 0;
+  -webkit-transform-origin: right center;
+          transform-origin: right center;
+  z-index: 130;
+}
+
+.progress-circle .inner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translateX(-50%) translateY(-50%);
+          transform: translateX(-50%) translateY(-50%);
+  width: 6.875em;
+  height: 6.875em;
+  z-index: 300;
+  background: #07152E;
+}
+
+.progress-circle .inner,
+.progress-circle .outer {
+  display: inline-block;
+  border-radius: 50%;
+}
+
+.percentage {
+  font-size: 31px;
+}
+
+#check{
+	width: 50px;
+}
+
+.quizz .question{
+	width: 400px;
+	margin: 0 auto;
+}
+
+.quizz .question button{
+	border: none;
+	color: #000;
+	background-color: #D8D8D8;
+	text-align: center;
+	padding: 13px 51px;
+	border-radius: 50px;
+	width: 400px;
+	font-size: 15px;
+	display: inherit;
+	margin-bottom: 20px;
+}
+
+.quizz .question button:hover{
+	color: #fff;
+	background-color: #949494;
+	cursor: pointer;
+}
+
+.quizz .question .good{
+	background-color: #7ED321;
+	color: #fff;
+}
+
+.quizz .question .bad{
+	background-color: #D32121;
+	color: #fff;
+}
+
+.quizz .question .calltoaction{
+	float: right;
+}
+
+.quizz .quizz-score{
+	margin: 0 auto;
     display: block;
-    width: 250px;
-    padding: 5px 10px;
-    margin: 10px auto;
+    width: 440px;
 }
 
-input[type="checkbox"]{
-    display: inline-block;
-    width: auto;
+.quizz .quizz-score h2{
+	font-family: 'GothamBlack';
+	font-size: 16px;
+	text-align: center;
+	color: #fff;
+	text-transform: uppercase;
 }
 
-footer {
-    margin: 50px 0;
-    color: lightgrey;
-    font-size: 12px;
-    cursor: default;
+.quizz .quizz-score .quizz-result{
+	width: 435px;
+	display: flex;
+	margin-top: 40px;
+	overflow: hidden;
+}
+
+.quizz .quizz-score .quizz-result p{
+	text-transform: uppercase;
+	font-size: 13px;
+	color: #fff;
+	padding: 30px;
+	line-height: 40px;
+}
+
+.quizz .quizz-score .quizz-result span{
+	font-family: 'GothamBlack';
+	color: #fff;
+	font-size: 40px;
+	display: block;
+	text-align: center;
+}
+
+.quizz .quizz-score .quizz-share{
+	margin: 50px 0;
+}
+
+.quizz .quizz-score .quizz-share a{
+	display: inline-block;
+	margin: 0 9px;
+}
+
+.quizz-share-btn{
+	padding: 9px 15px;
+	border-radius: 5px;
+	font-size: 12px;
+	font-family: 'GothamMedium';
+}
+
+.quizz-share-btn img{
+	width: 12px;
+	margin-right: 5px;
+}
+
+.quizz .quizz-score .quizz-share .restart{
+	background-color: #ECC503;
+}
+
+.fb{
+	background-color: #3B5999;
+	display: inline-block;
+	margin-top: 20px;
+}
+
+.quizz .quizz-score .quizz-share .twitter{
+	background-color: #18A9E3;
+}
+
+/*---------------------------------------------------- Responsive ---------------------------------------------------------*/
+
+
+
+@media screen and (min-width: 0px) and (max-width: 767px){
+
+	#loading #logo {
+	    width: 240px;
+	    /*padding-top: 57%;*/
+	    animation-duration: 1s;
+		animation-delay: .3s;
+	}
+
+	#loading .middle{
+		margin-top: 50vh;
+	  	transform: translateY(-50%);
+	}
+
+	.portraits,
+	.main-nav,
+	#legends-hr,
+	#map1,
+	#filtre-anim,
+	#div-more-infos .cross/*,
+	#div-more-musics,
+	#div-more-infos*/{
+		display: none;
+	}
+
+	.logo-competition{
+		display: none !important;
+	}
+
+	.burger-nav{
+		display: block;
+	}
+
+	.competitions .music,
+	.competitions .more-btns,
+	.competitions .music-desc{
+		position: initial;
+	}
+
+	.quizz .quizz-score,
+	.quizz .quizz-score .quizz-result,
+	.quizz .question{
+		float: none;
+		width: 100%;
+	}
+
+	.logo{
+		float: none;
+		width: 85%;
+	}
+
+	#burger{
+		display: block;
+		position: absolute;
+		top: 30px;
+		left: 20px;
+	}
+
+	#div-burger{
+		background-color: #07152E;
+		height: 100vh;
+		overflow-y: hidden;
+	}
+
+	#div-burger .cross{
+		position: absolute;
+	    top: 20px;
+	    right: 20px;
+	}
+
+	#div-burger .cross img{
+		width: 25px;
+	}
+
+	/*#div-burger ul{
+		margin-top: 20%;
+		height: 50%;
+	}*/
+
+	#div-burger ul {
+	  	margin-top: 50vh;
+	  	transform: translateY(-50%);
+	}
+
+	#div-burger ul a{
+		font-family: 'GothamBlack';
+	    text-align: center;
+	    margin: 80px auto;
+	    display: block;
+	    font-size: 22px;
+	}
+
+	#div-burger ul a:hover{
+		color: #FFFB00;
+	}
+
+	#logo,
+	.quizz .quizz-score .quizz-result {
+	    margin: 0 auto;
+	    display: block;
+	}
+
+	.competitions .music h2{
+		font-size: 40px;
+		width: 90%;
+		text-align: center;
+		line-height: 45px;
+		margin: 20px auto;
+		display: block;
+	}
+
+	.competitions .music-desc{
+		width: 90%;
+		display: block;
+    	margin: 100px auto;
+	}
+
+	.legends,
+	#list-pays,
+	.quizz{
+		width: 100%; 
+	    padding-top: 70px;
+	}
+
+	.legends .legend{
+	    padding: 10px 23%;
+    	display: block;
+	}
+
+	.competitions-years ul li {
+	    margin: 35px 47px;
+	}
+
+	.quizz-result div{
+		width: 50%;
+		float: left;
+	}
+
+	.quizz .quizz-score .quizz-result p{
+		text-align: center;
+		line-height: 16px;
+	}
+
+	.quizz .quizz-score .quizz-result span{
+		line-height: 70px;
+	}
+
+	.quizz .quizz-score .quizz-share a {
+	    display: block;
+	    margin: 15px auto;
+	    text-align: center;
+	}
+
+	.quizz-share-btn {
+	    width: 60%;
+	}
+
+	.quizz-score h2{
+		margin: -20px 0 20px 0;
+	}
+
+	#header-map,
+	#header-quizz,
+	#header-competitions,
+	#header-dates{
+		position: fixed;
+		background-color: #07152E;
+		width: 100%;
+		top: 0;
+		z-index: 200;
+	}
+
+	.quizz .question button{
+		width: 90%;
+		display: block;
+		margin: 0 auto 20px auto;
+		font-size: 14px;
+	}
+
+	.question .calltoaction{
+		margin-right: 20px;
+	}
+
+	#list-pays,
+	.music .under-name{
+		display: block !important;
+	}
+
+	.map-popup{
+		width: 100%;
+	}
+
+	.year-nav {
+	    display: table;
+	    margin: 130px auto 0 auto;
+	    width: 300px;
+	    position: initial;
+	    width: initial;
+	    height: initial;
+	}
+
+	.year-nav .prev, .year-nav .next {
+	    cursor: pointer;
+	    display: inline-block;
+	    position: initial;
+	    width: initial;
+	    height: initial;
+	}
+
+	.year-nav .prev .year, .year-nav .next .year {
+	    display: inline-block;
+	    position: initial;
+	}
+
+	.year-nav .prev .circle, .year-nav .next .circle{
+		display: none;
+	}
+
+	.year-nav .prev .line {
+	    position: initial;
+	}
+
+	.year-nav .prev .line, .year-nav .next .line {
+	    width: 35px;
+	    height: 1px;
+	    display: inline-block;
+	    margin: 0px 20px;
+	    position: initial;
+	}
+
+	.year-nav .prev .line-hover, .year-nav .next .line-hover{
+		display: none;
+	}
+
+	.year-nav .date {
+	    display: inline-block;
+	    text-align: middle;
+	    position: initial;
+	}
+
+	.competitions{
+		width: inherit;
+	}
+
+	.more-btns{
+		display: none;
+	}
+
+	.competitions .music h3{
+		text-align: center;
+	}
+
+	.competitions .music .calltoaction {
+	    display: table;
+	    margin: 0 auto;
+	}
+
+	.competitions .music-desc h4,
+	.music-desc p{
+		text-align: center;
+	}
+
+	.music-desc .fb{
+		text-align: center;
+	    margin: 30px auto;
+	    display: block;
+	}
+
+	.under-music-desc{
+		display: none !important;
+	}
+
+	.competitions .music-desc p{
+		margin-top: 15px;
+	}
+
+	#div-more-infos{
+		visibility: visible !important;
+	}
+
+	.competitions .more-infos{
+		width: 100%;
+		background-color: #07152E;
+	}
+
+	.participations .span,
+	.finalistes .span,
+	.know .span{
+		background-color: #fff;
+		color: #07152E;
+	}
+
+	.know p,
+	.finalistes li,
+	.finalistes span,
+	.winner-list p{
+		color: #fff;
+	}
+
+
+	.participations hr,
+	.finalistes hr,
+	.know hr{
+		background: #fff !important;
+	}
+
+	.competitions .more-infos{
+		padding: 0;
+		margin-top: 50px;
+	}
+
+	.competitions .more-infos .finalistes ul{
+		display: table;
+		width: initial;
+	}
+
+	#div-more-infos{
+		overflow: auto !important;
+		height: auto;
+	}
+
+
+}
+
+/*@media screen and (min-width: 376px) and (max-width: 768px){
+
+	.competitions .music,
+	.competitions .more-btns,
+	.competitions .music-desc{
+		position: relative;
+	}
+
+	.competitions .music h2{
+		font-size: 50px;
+		width: 100%;
+	}
+
+	.portraits,
+	.burger-nav{
+		display: none;
+	}
+
+	.competitions .music-desc{
+		width: 50%;
+	}
+}*/
+
+@media screen and (min-width: 768px) and (max-width: 969px){
+	.competitions .music h2{
+		font-size: 70px;
+		width: 100%;
+	}
+
+	.portraits,
+	.burger-nav{
+		display: none;
+	}
+
+	.competitions .music-desc{
+		width: 50%;
+	}
+
+	.competitions .music-desc{
+		bottom: 10%;
+		right: 3%;
+	}
 }
