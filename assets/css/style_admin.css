@@ -1,0 +1,121 @@
+body {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.inner {
+    text-align: center;
+    max-width: 1280px;
+    margin: 0 auto;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+h1 {
+    text-align: center;
+}
+
+table {
+    margin: 0 auto;
+    border-collapse: collapse;
+}
+
+th, td {
+    border: 1px solid lightgrey;
+    width: 200px;
+    height: 50px;
+    text-align: center;
+}
+
+th {
+    background-color: dimgrey;
+    color: white;
+}
+
+.action {
+    width: 325px;
+}
+
+.modifier, .supprimer, .publier, .ajouter, .link{
+    font-size: 12px;
+    text-transform: uppercase;
+    padding: 5px 10px;
+    margin: 0 5px;
+    border-radius: 4px;
+    transition: all 0.3s ease-in-out;
+}
+
+.modifier {
+    border: 1px solid lightgreen;
+    color: lightgreen;
+}
+.modifier:hover {
+    background-color: lightgreen;
+    color: black;
+}
+
+.supprimer {
+    border: 1px solid lightcoral;
+    color: lightcoral;
+}
+
+.supprimer:hover {
+    background-color: lightcoral;
+    color: black;
+}
+
+.publier {
+    border: 1px solid lightskyblue;
+    color: lightskyblue;
+}
+
+.publier:hover {
+    background-color: lightskyblue;
+    color: black;
+}
+
+.ajouter {
+    display: inline-block;
+    margin: 15px 0;
+    border: 1px solid lightsalmon;
+    color: lightsalmon;
+}
+
+.ajouter:hover {
+    background-color: lightsalmon;
+    color: black;
+}
+
+.link {
+    display: inline-block;
+    margin: 15px 0;
+    border: 1px solid lightseagreen;
+    color: lightseagreen;
+}
+
+.link:hover {
+    background-color: lightseagreen;
+    color: black;
+}
+
+input, textarea {
+    text-align: center;
+    display: block;
+    width: 250px;
+    padding: 5px 10px;
+    margin: 10px auto;
+}
+
+input[type="checkbox"]{
+    display: inline-block;
+    width: auto;
+}
+
+footer {
+    margin: 50px 0;
+    color: lightgrey;
+    font-size: 12px;
+    cursor: default;
+}
