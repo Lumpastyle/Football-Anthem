@@ -20,6 +20,32 @@ class PageController
         $this->repository = new PageRepository($PDO);
     }
 
+    public function homeAction()
+    {
+        require "View/home.php";
+    }
+    public function timelineAction()
+    {
+        //competition join pays join hymne join image
+        //populaire
+        require "View/timeline.php";
+    }
+    public function datesAction()
+    {
+        //competition_date
+        require "View/dates.php";
+    }
+    public function paysAction()
+    {
+        //pays join hymne join image
+        require "View/pays.php";
+    }
+    public function quizzAction()
+    {
+        //quizz
+        require "View/quizz.php";
+    }
+
     public function ajoutAction()
     {
         $type = $_GET['type'];

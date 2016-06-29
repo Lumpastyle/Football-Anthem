@@ -1,0 +1,4 @@
+AuthName "Page d'administration protégée"
+AuthType Basic
+AuthUserFile "c:/MAMP/htdocs/2016/Football-Anthem/admin/.htpasswd"
+Require valid-user

@@ -666,6 +666,7 @@ class PageRepository
         $sql ="SELECT
                     `id`,
                     `name`,
+                    `id_competition`,
                     `description`,
                     `audio`
                 FROM

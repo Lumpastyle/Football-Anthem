@@ -5,20 +5,26 @@ $page = new \Controller\PageController($pdo);
 
 // Affichage de la liste (par defaut) ou ajout d'un message suivant action demandee
 
-$action = 'lister';
+$route = 'home';
 
-if (isset($_GET['a'])) {
-    $action = $_GET['a'];
+if (isset($_GET['p'])) {
+    $route = $_GET['p'];
 }
-switch($action){
-    case 'modifier':
-        $page->modifierAction();
+switch($route){
+    case 'timeline':
+        $page->timelineAction();
         break;
-    case 'supprimer':
-        $page->supprimerAction();
+    case 'dates':
+        $page->datesAction();
         break;
-    case 'lister':
+    case 'pays':
+        $page->paysAction();
+        break;
+    case 'quizz':
+        $page->quizzAction();
+        break;
+    case 'home':
     default:
-        $page->listeAction();
+        $page->homeAction();
         break;
 }
