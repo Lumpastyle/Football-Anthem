@@ -15,70 +15,7 @@
 	<link rel="stylesheet" href="css/animate.css">
 	<link rel="stylesheet" href="css/style.css">
 	<script src="js/jquery.min.js"></script>
-	<script>
 
-		jQuery(function(){
-
-	        $("header #burger").click(function(e){
-	            e.preventDefault();
-	            $('#div-burger').removeClass('none');
-	            $('header #burger').addClass('hidden');
-
-	            $('#header-quizz').addClass('none');
-	            $('.quizz').addClass('none');
-	        });
-
-	        $("#div-burger .cross").click(function(e){
-	            e.preventDefault();
-	            $('#div-burger').addClass('none');
-	            $('header #burger').removeClass('hidden');
-
-	            $('#header-quizz').removeClass('none');
-	            $('.quizz').removeClass('none');
-	        });
-
-
-        	var countQuestion = document.querySelector("#plus");
-        	var count = 1;
-
-        	$('.quizz-score').css({
-		        'display' : 'none'
-		    });
-
-        	$(".question .next").click(function(e){
-        		e.preventDefault();
-        		if (count <= 4){
-        			count += 1;
-	    			countQuestion.innerHTML = count;	
-        		} else if (count >= 5) {
-        			$(".question").addClass('none');
-        			$('.quizz-score').css({
-				        'display' : 'block'
-				    });
-				    $(".goal-tracker__data .percentage").addClass('none');
-				    $(".goal-tracker__data #check").removeClass('none');
-        		}
-	    		
-		    })
-
-		    $(".quizz-share #replay").click(function(e){
-	            e.preventDefault();
-	            count = 1;
-	            countQuestion.innerHTML = count;
-		        $('.quizz-score').css({
-			        'display' : 'none'
-			    });
-        		$(".question").removeClass('none');
-				$(".goal-tracker__data .percentage").removeClass('none');
-				$(".goal-tracker__data #check").addClass('none');
-	        });
-
-
-
-
-
-	    })
-	</script>
 </head>
 <body>
 	<div id="div-burger" class="none">
@@ -145,5 +82,69 @@
 		</div>
 	</div>
 
+    <script>
+
+        jQuery(function(){
+
+            $("header #burger").click(function(e){
+                e.preventDefault();
+                $('#div-burger').removeClass('none');
+                $('header #burger').addClass('hidden');
+
+                $('#header-quizz').addClass('none');
+                $('.quizz').addClass('none');
+            });
+
+            $("#div-burger .cross").click(function(e){
+                e.preventDefault();
+                $('#div-burger').addClass('none');
+                $('header #burger').removeClass('hidden');
+
+                $('#header-quizz').removeClass('none');
+                $('.quizz').removeClass('none');
+            });
+
+
+            var countQuestion = document.querySelector("#plus");
+            var count = 1;
+
+            $('.quizz-score').css({
+                'display' : 'none'
+            });
+
+            $(".question .next").click(function(e){
+                e.preventDefault();
+                if (count <= 4){
+                    count += 1;
+                    countQuestion.innerHTML = count;
+                } else if (count >= 5) {
+                    $(".question").addClass('none');
+                    $('.quizz-score').css({
+                        'display' : 'block'
+                    });
+                    $(".goal-tracker__data .percentage").addClass('none');
+                    $(".goal-tracker__data #check").removeClass('none');
+                }
+
+            })
+
+            $(".quizz-share #replay").click(function(e){
+                e.preventDefault();
+                count = 1;
+                countQuestion.innerHTML = count;
+                $('.quizz-score').css({
+                    'display' : 'none'
+                });
+                $(".question").removeClass('none');
+                $(".goal-tracker__data .percentage").removeClass('none');
+                $(".goal-tracker__data #check").addClass('none');
+            });
+
+
+
+
+
+        })
+    </script>
 </body>
 </html>

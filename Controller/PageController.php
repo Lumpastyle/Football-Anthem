@@ -22,6 +22,7 @@ class PageController
 
     public function homeAction()
     {
+        $route = "home";
         require "View/home.php";
     }
     public function timelineAction()
@@ -37,6 +38,7 @@ class PageController
     }
     public function paysAction()
     {
+        $route = "pays";
         //pays join hymne join image
         require "View/pays.php";
     }
