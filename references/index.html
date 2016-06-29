@@ -15,81 +15,7 @@
 	<link rel="stylesheet" href="css/animate.css">
 	<link rel="stylesheet" href="css/style.css">
 	<script src="js/jquery.min.js"></script>
-	<script>
 
-		$(document).ready(function(){
-			// $.fn.extend({
-			//     animateCssWithNext: function (animationName, animationNext) {
-			//         var animationEnd = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend';
-			//         $(this).addClass('animated ' + animationName).one(animationEnd, function() {
-			//             $(this).removeClass('animated ' + animationName);
-			//             $(this).addClass('next animated ' + animationNext);
-			//         });
-			//     },
-			//     animateCss: function (animationName) {
-			//         var animationEnd = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend';
-			//         $(this).addClass('animated ' + animationName)
-			//     },
-			//     animateCssTimeline: function (t1animation, t2, t3) {
-			//         var animationEnd = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend';
-			//         $(this).addClass('animated ' + t1animation).one(animationEnd, function() {
-			//         	if( $(t2[0]).hasClass('hidden') ) { $(t2[0]).removeClass('hidden') }
-		 //        		$(t2[0]).css({
-		 //        			animationDuration: t2[2],
-		 //        			animationDelay: t2[3]
-		 //        		})
-			//             $(t2[0]).addClass('animated ' + t2[1]).one(animationEnd, function() {
-			//             	if( $(t3[0]).hasClass('hidden') ) { $(t3[0]).removeClass('hidden') }
-			//             	$(t3[0]).css({
-			//         			animationDuration: t3[2],
-			//         			animationDelay: t3[3]
-			//         		})
-			//             	$(t3[0]).addClass('animated ' + t3[1]);
-			//             });
-			//         });
-			//     },
-			// });
-
-
-
-
-	        
-
-	        //$('#logo').animateCss('fadeInDown');
-	        /* deux anims à la suite sur le même element */
-	        // $('#logo').animateCssWithNext('fadeInDown', 'tada');
-
-	        /* timeline d'elements . Ici logo puis t2 ('selecteur', 'animation'), puis t3 */
-	        // var t2 = ['#div-headphones', 'flipOutX', '.2s', '0'];
-	        // var t3 = ['#div-commencer', 'flipInX',  '.2s', '0'];
-	        // $('#logo').animateCssTimeline('fadeIn', t2, t3);
-
-
-	        $.fn.extend({
-			    animateCss: function (animationName) {
-			        var animationEnd = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend';
-			        $(this).addClass('animated ' + animationName).one(animationEnd, function() {
-			            $(this).removeClass('animated ' + animationName);
-			        });
-			    }
-			});
-
-	        $('#logo').animateCss('fadeIn');
-	        $('h2').animateCss('fadeInUp');
-	        $('#div-headphones').animateCss('fadeIn');
-	        $('#headphones').animateCss('pulse');
-	        $('#div-commencer').animateCss('flipInX');
-
-
-	        setTimeout(nextButton, 6500);
-
-		        function nextButton(){
-		            $('#div-headphones').addClass('hidden');
-		            $('#div-commencer').removeClass('hidden');
-		        } 
-		    });
-
-	</script>
 </head>
 <body id="loading" class="unscroll">
 	<div class="middle">
@@ -103,5 +29,35 @@
 			<a class="calltoaction" href="Competitions.html">Commencer</a>
 		</div>	
 	</div>
+
+    <script>
+
+        $(document).ready(function(){
+
+            $.fn.extend({
+                animateCss: function (animationName) {
+                    var animationEnd = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend';
+                    $(this).addClass('animated ' + animationName).one(animationEnd, function() {
+                        $(this).removeClass('animated ' + animationName);
+                    });
+                }
+            });
+
+            $('#logo').animateCss('fadeIn');
+            $('h2').animateCss('fadeInUp');
+            $('#div-headphones').animateCss('fadeIn');
+            $('#headphones').animateCss('pulse');
+            $('#div-commencer').animateCss('flipInX');
+
+
+            setTimeout(nextButton, 6500);
+
+            function nextButton(){
+                $('#div-headphones').addClass('hidden');
+                $('#div-commencer').removeClass('hidden');
+            }
+        });
+
+    </script>
 </body>
 </html>
