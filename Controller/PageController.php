@@ -28,8 +28,7 @@ class PageController
     public function timelineAction()
     {
         $route = "timeline";
-        //competition join pays join hymne join image
-        //populaire
+
         $request = $_GET;
 
         // récupère le nom de la compétition
@@ -40,15 +39,18 @@ class PageController
         }
 
         // récupérère la compétition par le nom
+
         $competition = $this->repository->getCompetitionByName($name);
 
-        $data = $this->repository->getTimelineData();
+        $competition = $this->repository->getTimelineDataById($competition->id);
         $populaire = $this->repository->getTimelinePopulaire();
 
+
+
         // récupération de la compétion précédente et suivante à notre compétition actuelle.
-        $prevAndNext = $this->repository->getNextAndPreviousFor($competition->id);
-        $competition->prev = $prevAndNext['prev'];
-        $competition->next = $prevAndNext['next'];
+        $prevAndNext = $this->repository->getNextAndPreviousFor($competition[0]['id']);
+        $competition[0]['prev'] = $prevAndNext['prev'];
+        $competition[0]['next'] = $prevAndNext['next'];
 
         require "View/timeline.php";
     }
@@ -56,27 +58,23 @@ class PageController
     public function getCompetition($id)
     {
         $route = "competition";
-        //competition join pays join hymne join image
-        //populaire
+
         $model = $this->repository;
         $request = $_GET;
 
         $competition = $model->getCompetitionById($id);
 
-        $prevAndNext = $model->getNextAndPreviousFor($competition->id);
-        $competition->prev = $prevAndNext['prev'];
-        $competition->next = $prevAndNext['next'];
+        $competition = $this->repository->getTimelineDataById($competition->id);
+        $populaire = $this->repository->getTimelinePopulaire();
 
-        $response = [];
-        $response['id'] = $competition->id;
-        $response['name'] = $competition->name;
-        $response['date'] = $competition->date;
-        $response['id_organisateur'] = $competition->id_organisateur;
-        $response['id_hymne'] = $competition->id_hymne;
-        $response['id_image'] = $competition->id_image;
-        $response['description'] = $competition->description;
-        $response['prev'] = $competition->prev;
-        $response['next'] = $competition->next;
+
+
+        // récupération de la compétion précédente et suivante à notre compétition actuelle.
+        $prevAndNext = $this->repository->getNextAndPreviousFor($competition[0]['id']);
+        $competition[0]['prev'] = $prevAndNext['prev'];
+        $competition[0]['next'] = $prevAndNext['next'];
+
+        $response = $competition;
 
         require "View/response.php";
     }

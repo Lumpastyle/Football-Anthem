@@ -147,6 +147,7 @@ class PageRepository
     public function getTimelineData()
     {
         $sql ="SELECT
+                    c.id as id,
                     c.date as c_date,
                     c.type as c_type,
                     image.lien as c_image,
@@ -156,19 +157,103 @@ class PageRepository
                     pod.id_winner as c_gagnant,
                     pod.id_second as c_finaliste,
                     pod.id_semi_1 as c_semi_1,
-                    pod.id_semi_2 as c_semi_2
+                    pod.id_semi_2 as c_semi_2,
+                    py2.name as pays_participant,
+                    part.name as compe
                 FROM
                     competition as c
-                    INNER JOIN hymne as h ON h.id = c.id_hymne
-                    INNER JOIN pays as py1 ON py1.id = c.id_organisateur
-                    INNER JOIN podium as pod ON pod.id_competition = c.id
-                    INNER JOIN image ON image.id = c.id_image
+                    JOIN hymne as h ON h.id = c.id_hymne
+                    JOIN pays as py1 ON py1.id = c.id_organisateur
+                    JOIN podium as pod ON pod.id_competition = c.id
+                    JOIN image ON image.id = c.id_image
+					JOIN participants as part ON part.id_competition = c.id
+					JOIN pays as py2 ON part.id_pays = py2.id
                 ";
         $stmt = $this->PDO->prepare($sql);
         $stmt->execute();
 
         return $stmt->fetchAll(\PDO::FETCH_OBJ);
     }
+
+    public function getTimelineDataById($id)
+    {
+        $sql ="SELECT
+                    c.id,
+                    c.date as c_date,
+                    c.type as c_type,
+                    h.audio as c_audio,
+                    h.auteur as c_hymne,
+                    h.description as h_desc,
+                    img1.lien as c_image,
+                    c.description as c_description,
+                    h.chanteur as h_chanteur,
+                    h.date as h_date,
+                    pod.id_winner as c_gagnant,
+                    pod.id_second as c_finaliste,
+                    pod.id_semi_1 as c_semi_1,
+                    pod.id_semi_2 as c_semi_2,
+                    py1.name as orga,
+                    py2.name as pays_participant,
+                    part.name as compe,
+                    img2.lien as gagnant_flag,
+                    c.visuel as c_visuel
+
+                FROM
+                    competition as c
+                    JOIN hymne as h ON h.id = c.id_hymne
+                    JOIN pays as py1 ON py1.id = c.id_organisateur
+                    JOIN podium as pod ON pod.id_competition = c.id
+                    JOIN image as img1 ON img1.id = c.id_image
+					JOIN participants as part ON part.id_competition = c.id
+					JOIN pays as py2 ON part.id_pays = py2.id
+                    JOIN pays as py3 ON py3.id = pod.id_winner
+                    JOIN image as img2 ON py3.id_image = img2.id
+				WHERE
+				    c.id = :id
+                ";
+        $stmt = $this->PDO->prepare($sql);
+        $stmt->bindParam(':id',$id);
+        $stmt->execute();
+
+        return $stmt->fetchAll();
+    }
+
+
+    public function getTimelineDataByName($name)
+    {
+        $sql ="SELECT
+                    c.id as id,
+                    c.name,
+                    c.date as c_date,
+                    c.type as c_type,
+                    image.lien as c_image,
+                    c.description as c_description,
+                    h.chanteur as h_chanteur,
+                    h.date as h_date,
+                    pod.id_winner as c_gagnant,
+                    pod.id_second as c_finaliste,
+                    pod.id_semi_1 as c_semi_1,
+                    pod.id_semi_2 as c_semi_2,
+                    py2.name as pays_participant,
+                    part.name as compe
+                FROM
+                    competition as c
+                    JOIN hymne as h ON h.id = c.id_hymne
+                    JOIN pays as py1 ON py1.id = c.id_organisateur
+                    JOIN podium as pod ON pod.id_competition = c.id
+                    JOIN image ON image.id = c.id_image
+					JOIN participants as part ON part.id_competition = c.id
+					JOIN pays as py2 ON part.id_pays = py2.id
+				WHERE
+				    c.name = :name
+                ";
+        $stmt = $this->PDO->prepare($sql);
+        $stmt->bindParam(':name',$name,\PDO::PARAM_INT);
+        $stmt->execute();
+
+        return $stmt->fetchAll(\PDO::FETCH_OBJ);
+    }
+
 
     public function getTimelinePopulaire()
     {
@@ -180,32 +265,6 @@ class PageRepository
                 FROM
                     competition as c
                     INNER JOIN populaire as pop ON c.id = pop.id_competition
-                ";
-        $stmt = $this->PDO->prepare($sql);
-        $stmt->execute();
-
-        return $stmt->fetchAll(\PDO::FETCH_OBJ);
-    }
-
-    public function getTimelineParticipants()
-    {
-        $sql ="SELECT
-                    c.date as c_date,
-                    c.type as c_type,
-                    image.lien as c_image,
-                    c.description as c_description,
-                    h.chanteur as h_chanteur,
-                    h.date as h_date,
-                    pod.id_winner as c_gagnant,
-                    pod.id_second as c_finaliste,
-                    pod.id_semi_1 as c_semi_1,
-                    pod.id_semi_2 as c_semi_2
-                FROM
-                    competition as c
-                    INNER JOIN hymne as h ON h.id = c.id_hymne
-                    INNER JOIN pays as py1 ON py1.id = c.id_organisateur
-                    INNER JOIN podium as pod ON pod.id_competition = c.id
-                    INNER JOIN image ON image.id = c.id_image
                 ";
         $stmt = $this->PDO->prepare($sql);
         $stmt->execute();

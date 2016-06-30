@@ -26,41 +26,41 @@ include_once 'header.php' ?>
 </header>
 <div class="year-nav">
 
-    <div class="prev <?php if(is_null($competition->prev)) { echo 'hidden'; }?>" <?php if(!is_null($competition->prev)) : ?>data-prev-id="<?php echo $competition->prev['id'] ?>"<?php endif ?>>
-        <div class="year"><?php if(!is_null($competition->prev)) { echo date("Y", strtotime($competition->prev['date'])); } ?></div>
+    <div class="prev <?php if(is_null($competition[0]['prev'])) { echo 'hidden'; }?>" <?php if(!is_null($competition[0]['prev'])) : ?>data-prev-id="<?php echo $competition[0]['prev']['id'] ?>"<?php endif ?>>
+        <div class="year"><?php if(!is_null($competition[0]['prev'])) { echo date("Y", strtotime($competition[0]['prev']['date'])); } ?></div>
         <div class="circle"></div>
         <div class="line"></div>
         <div class="line-hover"></div>
     </div>
 
     <?php
-      $date = date("Y", strtotime($competition->date));
+      $date = date("Y", strtotime($competition[0]["c_date"]));
     ?>
     <div class="date"><?php echo $date ?></div>
 
 
-    <div class="next <?php if(is_null($competition->next)) { echo 'hidden'; }?>" <?php if(!is_null($competition->next)) : ?>data-next-id="<?php echo $competition->next['id'] ?>"<?php endif ?>>
+    <div class="next <?php if(is_null($competition[0]['next'])) { echo 'hidden'; }?>" <?php if(!is_null($competition[0]['next'])) : ?>data-next-id="<?php echo $competition[0]['next']['id'] ?>"<?php endif ?>>
         <div class="line"></div>
         <div class="line-hover"></div>
         <div class="circle"></div>
-        <div class="year"><?php if(!is_null($competition->next)) { echo date("Y", strtotime($competition->next['date'])); } ?></div>
+        <div class="year"><?php if(!is_null($competition[0]['next'])) { echo date("Y", strtotime($competition[0]['next']['date'])); } ?></div>
     </div>
 
 </div>
 <section class="competitions">
     <div class="music">
-        <h3>Coupe du monde - Brésil</h3>
+        <h3><?= $competition[0]["compe"] ?> - <?= $competition[0]["orga"] ?></h3>
         <hr class="under-name">
-        <h2>We are one</h2>
-        <audio id="audio1" src="assets/musics/Queen.mp3" type="audio/mp3"></audio>
+        <h2><?=$competition[0]["c_hymne"]?></h2>
+        <audio id="audio1" src="assets/musics/<?=$competition[0]["c_audio"]?>.mp3" type="audio/mp3"></audio>
         <a id="play-music-one" class="play-one calltoaction" href=""><span>Play</span> <img id="yellow" src="assets/images/triangle.svg"><img id="blue" class="none" src="assets/images/triangleblue.svg"></a>
         <a id="pause-music-one" class="play-one calltoaction none" href=""><span id="pause">Pause</span> <img id="yellow" src="assets/images/pauseyellow.svg"><img id="blue" class="none" src="assets/images/pauseblue.svg"></a>
         <!-- <a id="arrow" href=""><img src="images/arrow.svg"></a> -->
     </div>
     <div class="music-desc">
-        <h4>Pitbull, Jennifer Lopez, 2004</h4>
+        <h4><?=$competition[0]["h_chanteur"]?></h4>
         <hr class="under-music-desc">
-        <p>La chanson "We are One" succède au "Waka Waka" de la Colombienne Shakira en 2010.</p>
+        <p><?=$competition[0]["h_desc"]?></p>
         <a class="quizz-share-btn fb" target="_blank" href="https://www.facebook.com/sharer.php?u=http://localhost/03%20-%20Semaines%20Intensives/Foot/Competitions.html&quote=Venez écouter We are One de Pitbull et Jennifer Lopez&hashtag=test&mobile_iframe=true"><img src="assets/images/fb.svg"> partager</a>
     </div>
     <div class="more-btns">
@@ -73,48 +73,39 @@ include_once 'header.php' ?>
             <a id="more-musics" href="">Musique populaire</a>
         </div>
     </div>
-    <img class="portraits" src="assets/images/portraits/cristiano.png">
+    <img class="portraits" src="assets/images/portraits/<?=$competition[0]["c_visuel"]?>.png">
 
 
 
     <div id="div-more-infos" class="more-infos hidden">
         <a class="cross" href=""><img src="assets/images/cross.svg"></a>
-        <img class="logo-competition" src="assets/images/competitions/brasil.png">
+        <img class="logo-competition" src="assets/images/competitions/<?=$competition[0]["c_image"]?>.png">
         <div class="participations">
             <span class="span">Participants</span>
             <hr>
             <div class="flags">
-                <img  class="clip-circle" src="assets/images/flags/allemagne.png">
-                <img  class="clip-circle" src="assets/images/flags/france.png">
-                <img  class="clip-circle" src="assets/images/flags/italie.png">
-                <img  class="clip-circle" src="assets/images/flags/suisse.png">
-                <img  class="clip-circle" src="assets/images/flags/allemagne.png">
-                <img  class="clip-circle" src="assets/images/flags/france.png">
-                <img  class="clip-circle" src="assets/images/flags/italie.png">
-                <img  class="clip-circle" src="assets/images/flags/suisse.png">
-                <img  class="clip-circle" src="assets/images/flags/allemagne.png">
-                <img  class="clip-circle" src="assets/images/flags/france.png">
-                <img  class="clip-circle" src="assets/images/flags/italie.png">
-                <img  class="clip-circle" src="assets/images/flags/suisse.png">
+                <?php foreach($competition as $value):?>
+                <img  class="clip-circle" src="assets/images/flags/<?=$value->pays_participant?>.png">
+                <?php endforeach ?>
             </div>
         </div>
         <div class="finalistes">
             <span class="span">Finalistes</span>
             <hr>
             <div class="winner-list">
-                <img  class="clip-circle" src="assets/images/flags/allemagne.png">
-                <p id="winner">Allemagne</p>
+                <img  class="clip-circle" src="assets/images/flags/<?=$competition[0]["gagnant_flag"]?>.png">
+                <p id="winner"><?=$competition[0]["c_gagnant"]?></p>
             </div>
             <ul>
-                <li><span>2</span> France</li>
-                <li><span>3</span> Italie</li>
-                <li><span>4</span> Suisse</li>
+                <li><span>2</span> <?=$competition[0]["c_finaliste"]?></li>
+                <li><span>3</span> <?=$competition[0]["c_semi_1"]?></li>
+                <li><span>4</span> <?=$competition[0]["c_semi_2"]?></li>
             </ul>
         </div>
         <div class="know">
             <span class="span">Le saviez-vous ?</span>
             <hr>
-            <p>Primi igitur omnium statuuntur Epigonus et Eusebius ob nominum. Primi igitur omnium statuuntur Epigonus et Eusebius ob nominum. Primi igitur omnium statuuntur Epigonus et Eusebius ob nominum. Primi igitur omnium statuuntur Epigonus et Eusebius ob nominum.</p>
+            <p><?=$competition[0]["c_description"]?></p>
         </div>
     </div>
 
