@@ -49,9 +49,11 @@ jQuery(function(){
         data: {'id': id},
         dataType: 'json',
         success:function(compet) {
-            compet.date = new Date(compet.date).getFullYear();
-            actualEl.html(compet.date);
-            $('.music h3').html(compet.name + ' - ' + compet.id_organisateur);
+            compet = compet[0];
+            compet.c_date = new Date(compet.c_date).getFullYear();
+            actualEl.html(compet.c_date);
+            $('.music h3').html(compet.compe + ' - ' + compet.orga);
+            $('.music h2').html(compet.c_hymne);
 
             if(compet.prev != null) {
               compet.prev.date = new Date(compet.prev.date).getFullYear();
