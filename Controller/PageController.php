@@ -27,12 +27,60 @@ class PageController
     }
     public function timelineAction()
     {
+        $route = "timeline";
         //competition join pays join hymne join image
         //populaire
+        $model = $this->repository;
+        $request = $_GET;
+
+        // récupère le nom de la compétition
+        if(isset($request['name'])) {
+          $name = $request['name'];
+        } else {
+          $name = "euro_2016";
+        }
+
+        // récupérère la compétition par le nom
+        $competition = $model->getCompetitionByName($name);
+        // récupération de la compétion précédente et suivante à notre compétition actuelle.
+        $prevAndNext = $model->getNextAndPreviousFor($competition->id);
+        $competition->prev = $prevAndNext['prev'];
+        $competition->next = $prevAndNext['next'];
+
         require "View/timeline.php";
     }
+
+    public function getCompetition($id)
+    {
+        $route = "competition";
+        //competition join pays join hymne join image
+        //populaire
+        $model = $this->repository;
+        $request = $_GET;
+
+        $competition = $model->getCompetitionById($id);
+
+        $prevAndNext = $model->getNextAndPreviousFor($competition->id);
+        $competition->prev = $prevAndNext['prev'];
+        $competition->next = $prevAndNext['next'];
+
+        $response = [];
+        $response['id'] = $competition->id;
+        $response['name'] = $competition->name;
+        $response['date'] = $competition->date;
+        $response['id_organisateur'] = $competition->id_organisateur;
+        $response['id_hymne'] = $competition->id_hymne;
+        $response['id_image'] = $competition->id_image;
+        $response['description'] = $competition->description;
+        $response['prev'] = $competition->prev;
+        $response['next'] = $competition->next;
+
+        require "View/response.php";
+    }
+
     public function datesAction()
     {
+        $route = "dates";
         //competition_date
         require "View/dates.php";
     }
@@ -44,6 +92,7 @@ class PageController
     }
     public function quizzAction()
     {
+        $route = "quizz";
         //quizz
         require "View/quizz.php";
     }
