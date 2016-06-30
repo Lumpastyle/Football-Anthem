@@ -30,7 +30,6 @@ class PageController
         $route = "timeline";
         //competition join pays join hymne join image
         //populaire
-        $model = $this->repository;
         $request = $_GET;
 
         // récupère le nom de la compétition
@@ -41,9 +40,13 @@ class PageController
         }
 
         // récupérère la compétition par le nom
-        $competition = $model->getCompetitionByName($name);
+        $competition = $this->repository->getCompetitionByName($name);
+
+        $data = $this->repository->getTimelineData();
+        $populaire = $this->repository->getTimelinePopulaire();
+
         // récupération de la compétion précédente et suivante à notre compétition actuelle.
-        $prevAndNext = $model->getNextAndPreviousFor($competition->id);
+        $prevAndNext = $this->repository->getNextAndPreviousFor($competition->id);
         $competition->prev = $prevAndNext['prev'];
         $competition->next = $prevAndNext['next'];
 
