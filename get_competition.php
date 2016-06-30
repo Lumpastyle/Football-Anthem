@@ -1,15 +1,15 @@
 <?php
+// connexion a la base de donnees
 require_once __DIR__."/vendor/autoload.php";
 require_once "init.php";
-
 // Debut de l'application
 $page = new \Controller\PageController($pdo);
 
-if(count($_GET) === 0) {
-    http_response_code(404);
+if (isset($_GET['id'])) {
+    $id = $_GET['id'];
 } else {
-    // traitement de la requete
-    $page->getPays($_GET['pays']);
+  http_response_code(404);
 }
 
+$page->getCompetition($id);
 ?>

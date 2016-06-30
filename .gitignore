@@ -9,3 +9,9 @@ composer.phar
 /requetes.sql
 /foot_maj.sql
 /.idea
+.DS_STORE
+assets/musics/
+assets/images/portraits/
+assets/images/flag/
+assets/images/logo_euro/
+assets/images/logo_coupe_du_monde/

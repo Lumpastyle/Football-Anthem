@@ -1,3 +1,33 @@
+.background-scroll{
+	background: #FFFB00;
+	width: 100%;
+	height:100vh;
+	overflow-x: hidden;
+	bottom: -100vh;
+	position: absolute;
+}
+
+.background-scroll-animation{
+	transition: 2s;
+	top: -100vh !important;
+}
+
+.question p{
+	color: #fff;
+	margin-bottom: 30px;
+	text-align: center;
+}
+
+.quizz-score.none{
+	display: none !important;
+}
+
+button{
+	outline: none;
+}
+
+
+
 /*--------------------------------------------------------- Body -----------------------------------------------------------*/
 
 @font-face {
@@ -235,7 +265,7 @@ body header .main-nav ul li a:hover{
     z-index: 1;
     border-radius: 50%;
 	width: 7px;
-	height: 7px; 
+	height: 7px;
 	background-color: #FFFB00;
 }
 
@@ -350,6 +380,10 @@ body header .main-nav ul li a:hover{
 .competitions .music .calltoaction{
 	margin-top: 20px;
 	display: inline-block;
+}
+
+.competitions .music .calltoaction.none{
+	display: none;
 }
 
 .competitions .music .calltoaction img{
@@ -572,6 +606,10 @@ body header .main-nav ul li a:hover{
 	margin-top: 60px;
 }
 
+.competitions .more-musics .calltoaction.none{
+	display: none;
+}
+
 .competitions .more-musics .calltoaction img{
 	width: 10px;
 	margin: 0 0 1px 10px;
@@ -685,7 +723,7 @@ body header .main-nav ul li a:hover{
 /*------------------------------------------------------- Map ----------------------------------------------------*/
 
 .map-popup{
-	position: absolute;
+	position: fixed;
 	right: 0;
 	top: 0;
 	background-color: #fff;
@@ -994,6 +1032,11 @@ b.goal-tracker__signed {
 	cursor: pointer;
 }
 
+.selected{
+	color: #fff !important;
+	background-color: #949494 !important;
+}
+
 .quizz .question .good{
 	background-color: #7ED321;
 	color: #fff;
@@ -1204,7 +1247,7 @@ b.goal-tracker__signed {
 	.legends,
 	#list-pays,
 	.quizz{
-		width: 100%; 
+		width: 100%;
 	    padding-top: 70px;
 	}
 

@@ -8,7 +8,7 @@ include_once 'header.php' ?>
         <ul>
             <li><a href="index.php?p=pays">Nations</a></li>
             <li><a href="index.php?p=dates">Compétitions</a></li>
-            <li><a href="index.php?p=quizz">Quizz</a></li>
+            <li><a href="index.php?p=quizz&id=1">Quizz</a></li>
         </ul>
     </nav>
 </div>
@@ -19,7 +19,7 @@ include_once 'header.php' ?>
         <ul>
             <li><a href="index.php?p=pays">Nations</a></li>
             <li><a href="index.php?p=dates">Compétitions</a></li>
-            <li><a class="active" href="index.php?p=quizz">Quizz</a></li>
+            <li><a class="active" href="index.php?p=quizz&id=1">Quizz</a></li>
         </ul>
     </nav>
 </header>
@@ -41,13 +41,28 @@ include_once 'header.php' ?>
         </div>
     </div>
     <hr>
-    <div class="question">
-        <p>L’hymne ‘We are One’ a été joué pour :</p>
-        <button class="good" type="button" name="">La Coupe du Monde de 1998</button>
-        <button type="button" name="">Le Championnat d’Europe de 2004 </button>
-        <button type="button" name="">La Coupe du Monde de 2014</button>
-        <a class="calltoaction next" href="">Suivant</a>
+
+
+        <?php
+
+        $questions=[];
+        $i = 1;
+        $countGoddAnswers = 0;
+
+        foreach($quizz as $index => $one):;?>
+
+    <div class="question <?=$index?> <? if($index > 0) :?>none<? endif ?>" data-id-question="<?=$one->id?>" >
+            <p><?=$one->question?></p>
+            <button class="button 1" data-reponse="1" type="button" name=""><?=$one->reponse_1?></button>
+            <button class="button 2" data-reponse="2" type="button" name=""><?=$one->reponse_2?></button>
+            <button class="button 3" data-reponse="3" type="button" name=""><?=$one->reponse_3?></button>
+
+            <a class="calltoaction next hidden" href="">Suivant</a>
     </div>
+        <?php endforeach;?>
+
+
+
     <div class="quizz-score none">
         <h2>Score final</h2>
         <div class="quizz-result">
@@ -70,6 +85,9 @@ include_once 'header.php' ?>
 
     jQuery(function(){
 
+        var actualQuestion = 0;
+        var goodAnswers = 0;
+
         $("header #burger").click(function(e){
             e.preventDefault();
             $('#div-burger').removeClass('none');
@@ -88,41 +106,107 @@ include_once 'header.php' ?>
             $('.quizz').removeClass('none');
         });
 
-
-        var countQuestion = document.querySelector("#plus");
-        var count = 1;
-
-        $('.quizz-score').css({
-            'display' : 'none'
-        });
-
-        $(".question .next").click(function(e){
+        $(".question .button").click(function(e){
             e.preventDefault();
-            if (count <= 4){
-                count += 1;
-                countQuestion.innerHTML = count;
-            } else if (count >= 5) {
-                $(".question").addClass('none');
-                $('.quizz-score').css({
-                    'display' : 'block'
-                });
-                $(".goal-tracker__data .percentage").addClass('none');
-                $(".goal-tracker__data #check").removeClass('none');
+
+
+            var _this = $(this);
+            var reponse = $(this).data('reponse');
+            var parent = $(this).parent();
+            var question = parent.data('id-question');
+
+
+            if(parent.hasClass('disable')){
+                return;
             }
 
-        })
+            $.ajax({
+                url:"quizz_answers.php",
+                type: 'GET',
+                data: {'reponse': reponse, 'question': question},
+                dataType: 'json',
+                success:function(data) {
+                    if(!data.is_good) {
+                        _this.addClass('bad');
+                        parent.find('button.' + data.bonne_reponse).addClass('good');
+                    } else {
+                        _this.addClass('good');
+                        goodAnswers++;
+                    }
+                    $('.calltoaction.next').removeClass('hidden');
+
+                    parent.addClass('disable');
+                    console.log('nb bonne réponses', goodAnswers);
+                }
+            });
+
+
+        });
+
+        $('.calltoaction.next').click(function(e){
+            e.preventDefault();
+
+            $('.question.' + actualQuestion).addClass('none');
+
+            if(actualQuestion == 4) {
+
+                $(".goal-tracker__data .percentage").addClass('none');
+                $(".goal-tracker__data #check").removeClass('none');
+
+                $('.quizz-score').removeClass('none');
+                $('.quizz-good span').html(goodAnswers);
+                var total = 5;
+                var badAnswers = total-goodAnswers;
+                $('.quizz-bad span').html(badAnswers);
+                return;
+            }
+
+
+            $('.question.' + actualQuestion).addClass('none');
+            actualQuestion++;
+            $('.question.' + actualQuestion).removeClass('none');
+            $('.percentage #plus').html(actualQuestion+1);
+            $(this).addClass('hidden');
+        });
 
         $(".quizz-share #replay").click(function(e){
-            e.preventDefault();
-            count = 1;
-            countQuestion.innerHTML = count;
-            $('.quizz-score').css({
-                'display' : 'none'
-            });
-            $(".question").removeClass('none');
-            $(".goal-tracker__data .percentage").removeClass('none');
-            $(".goal-tracker__data #check").addClass('none');
+            location.reload();
         });
+
+
+
+
+        //var countQuestion = document.querySelector("#plus");
+        //var count = 1;
+
+
+        //$(".question .next").click(function(e){
+        //    e.preventDefault();
+        //    if (count <= 4){
+        //        count += 1;
+        //        countQuestion.innerHTML = count;
+        //    } else if (count >= 5) {
+        //        $(".question").addClass('none');
+        //        $('.quizz-score').css({
+        //            'display' : 'block'
+        //        });
+        //        $(".goal-tracker__data .percentage").addClass('none');
+        ////        $(".goal-tracker__data #check").removeClass('none');
+        //    }
+    //
+        // })
+
+        // $(".quizz-share #replay").click(function(e){
+        //    e.preventDefault();
+        //    count = 1;
+        //    countQuestion.innerHTML = count;
+        //    $('.quizz-score').css({
+        //        'display' : 'none'
+        //    });
+        //    $(".question").removeClass('none');
+        //    $(".goal-tracker__data .percentage").removeClass('none');
+        //    $(".goal-tracker__data #check").addClass('none');
+        //});
 
 
 
