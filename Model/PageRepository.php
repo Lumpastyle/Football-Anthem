@@ -79,6 +79,69 @@ class PageRepository
     }
 
     /**
+     * @param $name
+     * @return mixed
+     */
+    public function getCompetitionByName($name){
+        $sql ="SELECT
+                    `id`,
+                    `name`,
+                    `type`,
+                    `date`,
+                    `id_organisateur`,
+                    `id_hymne`,
+                    `id_image`,
+                    `description`
+                FROM
+                    `competition`
+                WHERE
+                    `name` = :name
+                ";
+        $stmt = $this->PDO->prepare($sql);
+        $stmt->bindParam(':name',$name,\PDO::PARAM_INT);
+        $stmt->execute();
+
+        return $stmt->fetchObject();
+    }
+
+    /**
+     * @param $name
+     * @return mixed
+     */
+    public function getNextAndPreviousFor($id){
+        $sql ="SELECT
+                    *
+                FROM
+                    `competition`
+                ORDER BY
+                    `date`
+                DESC
+                ";
+        $stmt = $this->PDO->prepare($sql);
+        $stmt->execute();
+
+        $result = $stmt->fetchAll();
+
+        foreach ($result as $index => $date) {
+            if ($date['id'] == $id) {
+                if ($index == 0) {
+                    $prev = null;
+                } else {
+                    $prev = $result[$index-1];
+                }
+
+                if ($index == count($result)) {
+                    $next = null;
+                } else {
+                    $next = $result[$index+1];
+                }
+
+                return ['prev' => $prev, 'next' => $next];
+            }
+        }
+    }
+
+    /**
      * @param $id
      * @return mixed
      */

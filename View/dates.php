@@ -36,9 +36,9 @@ include_once 'header.php' ?>
 <hr id="legends-hr">
 <div class="competitions-years">
     <ul>
-        <li><a class="blue" href="">2016</a></li>
-        <li><a class="yellow" href="">2014</a></li>
-        <li><a class="blue" href="">2016</a></li>
+        <li><a class="blue" href="index.php?p=timeline&name=euro_2016">2016</a></li>
+        <li><a class="yellow" href="index.php?p=timeline&name=coupe_2014">2014</a></li>
+        <li><a class="blue" href="index.php?p=timeline&name=euro_2012">2012</a></li>
         <li><a class="yellow" href="">2014</a></li>
         <li><a class="blue" href="">2016</a></li>
         <li><a class="yellow" href="">2014</a></li>
