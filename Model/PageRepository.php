@@ -57,6 +57,9 @@ class PageRepository
      * @return mixed
      */
     public function getCompetitionById($id){
+
+        //
+
         $sql ="SELECT
                     `id`,
                     `name`,
@@ -139,6 +142,75 @@ class PageRepository
                 return ['prev' => $prev, 'next' => $next];
             }
         }
+    }
+
+    public function getTimelineData()
+    {
+        $sql ="SELECT
+                    c.date as c_date,
+                    c.type as c_type,
+                    image.lien as c_image,
+                    c.description as c_description,
+                    h.chanteur as h_chanteur,
+                    h.date as h_date,
+                    pod.id_winner as c_gagnant,
+                    pod.id_second as c_finaliste,
+                    pod.id_semi_1 as c_semi_1,
+                    pod.id_semi_2 as c_semi_2
+                FROM
+                    competition as c
+                    INNER JOIN hymne as h ON h.id = c.id_hymne
+                    INNER JOIN pays as py1 ON py1.id = c.id_organisateur
+                    INNER JOIN podium as pod ON pod.id_competition = c.id
+                    INNER JOIN image ON image.id = c.id_image
+                ";
+        $stmt = $this->PDO->prepare($sql);
+        $stmt->execute();
+
+        return $stmt->fetchAll(\PDO::FETCH_OBJ);
+    }
+
+    public function getTimelinePopulaire()
+    {
+        $sql ="SELECT
+                    c.id,
+                    pop.name,
+                    pop.audio,
+                    pop.description
+                FROM
+                    competition as c
+                    INNER JOIN populaire as pop ON c.id = pop.id_competition
+                ";
+        $stmt = $this->PDO->prepare($sql);
+        $stmt->execute();
+
+        return $stmt->fetchAll(\PDO::FETCH_OBJ);
+    }
+
+    public function getTimelineParticipants()
+    {
+        $sql ="SELECT
+                    c.date as c_date,
+                    c.type as c_type,
+                    image.lien as c_image,
+                    c.description as c_description,
+                    h.chanteur as h_chanteur,
+                    h.date as h_date,
+                    pod.id_winner as c_gagnant,
+                    pod.id_second as c_finaliste,
+                    pod.id_semi_1 as c_semi_1,
+                    pod.id_semi_2 as c_semi_2
+                FROM
+                    competition as c
+                    INNER JOIN hymne as h ON h.id = c.id_hymne
+                    INNER JOIN pays as py1 ON py1.id = c.id_organisateur
+                    INNER JOIN podium as pod ON pod.id_competition = c.id
+                    INNER JOIN image ON image.id = c.id_image
+                ";
+        $stmt = $this->PDO->prepare($sql);
+        $stmt->execute();
+
+        return $stmt->fetchAll(\PDO::FETCH_OBJ);
     }
 
     /**
@@ -734,6 +806,32 @@ class PageRepository
                     `audio`
                 FROM
                     `populaire`
+                ";
+
+        $stmt = $this->PDO->prepare($sql);
+        $stmt->execute();
+
+        return $stmt->fetchAll(\PDO::FETCH_OBJ);
+    }
+
+    /**
+     * @return array
+     */
+    public function findFiveQuizz()
+    {
+        $sql ="SELECT
+                    `id`,
+                    `question`,
+                    `reponse_1`,
+                    `reponse_2`,
+                    `reponse_3`,
+                    `bonne_reponse`
+                FROM
+                    `quizz`
+                ORDER BY
+                    rand()
+                LIMIT
+                    5
                 ";
 
         $stmt = $this->PDO->prepare($sql);
