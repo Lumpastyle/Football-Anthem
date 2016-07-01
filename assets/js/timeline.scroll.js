@@ -54,6 +54,12 @@ jQuery(function(){
             actualEl.html(compet.c_date);
             $('.music h3').html(compet.compe + ' - ' + compet.orga);
             $('.music h2').html(compet.c_hymne);
+            $('#audio1').attr("href", "assets/musics/"+compet.c_audio+".mp3");
+            $('.portraits').attr("href", "assets/images/portraits/"+compet.c_visuel+".png");
+            $('.music-desc h4').html(compet.h_chanteur);
+            $('.music-desc p').html(compet.h_desc);
+            $('logo-competition').attr("href","assets/images/competitions/"+compet.c_image+".png");
+            $('#winner').html(compet.c_gagnant);
 
             if(compet.prev != null) {
               compet.prev.date = new Date(compet.prev.date).getFullYear();

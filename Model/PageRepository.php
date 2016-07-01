@@ -188,15 +188,15 @@ class PageRepository
                     c.description as c_description,
                     h.chanteur as h_chanteur,
                     h.date as h_date,
-                    pod.id_winner as c_gagnant,
-                    pod.id_second as c_finaliste,
-                    pod.id_semi_1 as c_semi_1,
-                    pod.id_semi_2 as c_semi_2,
                     py1.name as orga,
                     py2.name as pays_participant,
                     part.name as compe,
                     img2.lien as gagnant_flag,
-                    c.visuel as c_visuel
+                    c.visuel as c_visuel,
+                    pyw.name as c_gagnant,
+                    pyf.name as c_finaliste,
+                    pys1.name as c_semi_1,
+                    pys2.name as c_semi_2
 
                 FROM
                     competition as c
@@ -208,6 +208,10 @@ class PageRepository
 					JOIN pays as py2 ON part.id_pays = py2.id
                     JOIN pays as py3 ON py3.id = pod.id_winner
                     JOIN image as img2 ON py3.id_image = img2.id
+                    JOIN pays as pyw ON pyw.id = pod.id_winner
+                    JOIN pays as pyf ON pyf.id = pod.id_second
+                    JOIN pays as pys1 ON pys1.id = pod.id_semi_1
+                    JOIN pays as pys2 ON pys2.id = pod.id_semi_2
 				WHERE
 				    c.id = :id
                 ";
