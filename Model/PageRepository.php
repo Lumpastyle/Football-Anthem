@@ -761,6 +761,8 @@ class PageRepository
                     `description`
                 FROM
                     `competition`
+                ORDER BY
+                    date DESC
                 ";
         $stmt = $this->PDO->prepare($sql);
         $stmt->execute();

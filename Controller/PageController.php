@@ -79,6 +79,8 @@ class PageController
     public function datesAction()
     {
         $route = "dates";
+
+        $competition = $this->repository->findAllCompetition();
         //competition_date
         require "View/dates.php";
     }
