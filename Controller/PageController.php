@@ -28,7 +28,6 @@ class PageController
     public function timelineAction()
     {
         $route = "timeline";
-
         $request = $_GET;
 
         // récupère le nom de la compétition
@@ -39,11 +38,10 @@ class PageController
         }
 
         // récupérère la compétition par le nom
-
         $competition = $this->repository->getCompetitionByName($name);
 
+        $populaire = $this->repository->getTimelinePopulaire($competition->id);
         $competition = $this->repository->getTimelineDataById($competition->id);
-        $populaire = $this->repository->getTimelinePopulaire();
 
 
 
@@ -51,6 +49,7 @@ class PageController
         $prevAndNext = $this->repository->getNextAndPreviousFor($competition[0]['id']);
         $competition[0]['prev'] = $prevAndNext['prev'];
         $competition[0]['next'] = $prevAndNext['next'];
+        $competition[0]['populaire'] = $populaire;
 
         require "View/timeline.php";
     }
@@ -58,14 +57,11 @@ class PageController
     public function getCompetition($id)
     {
         $route = "competition";
+        $competition = $this->repository->getCompetitionById($id);
 
-        $model = $this->repository;
-        $request = $_GET;
-
-        $competition = $model->getCompetitionById($id);
-
+        $populaire = $this->repository->getTimelinePopulaire($competition->id);
+        
         $competition = $this->repository->getTimelineDataById($competition->id);
-        $populaire = $this->repository->getTimelinePopulaire();
 
 
 
@@ -73,6 +69,7 @@ class PageController
         $prevAndNext = $this->repository->getNextAndPreviousFor($competition[0]['id']);
         $competition[0]['prev'] = $prevAndNext['prev'];
         $competition[0]['next'] = $prevAndNext['next'];
+        $competition[0]['populaire'] = $populaire;
 
         $response = $competition;
 
@@ -91,13 +88,45 @@ class PageController
     {
         $route = "pays";
         //pays join hymne join image
+        $countries = $this->repository->getAllCountries();
         require "View/pays.php";
+    }
+
+    public function getPays($name)
+    {
+        $response = [];
+        $pays = $this->repository->getPaysByName($name);
+
+        if($pays == false) {
+            $response['type'] = "error";
+            $response['message'] = "Pays non référencé";
+        } else {
+            $response['type'] = "success";
+            $response['pays'] = $pays[0];
+        }
+        echo json_encode($response);
     }
     public function quizzAction()
     {
         $route = "quizz";
+        $quizz = $this->repository->findFiveQuizz();
         //quizz
         require "View/quizz.php";
+    }
+
+    public function getGoodAnswer($answer, $id_question)
+    {
+        $response = [];
+
+        $question = $this->repository->getQuizzById($id_question);
+        if($question->bonne_reponse == $answer) {
+            $response['is_good'] = true;
+        } else {
+            $response['is_good'] = false;
+        }
+
+        $response['bonne_reponse'] = $question->bonne_reponse;
+        echo json_encode($response);
     }
 
     public function ajoutAction()

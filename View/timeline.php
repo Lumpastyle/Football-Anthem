@@ -9,7 +9,7 @@ include_once 'header.php' ?>
         <ul>
             <li><a href="index.php?p=pays">Nations</a></li>
             <li><a href="index.php?p=dates">Compétitions</a></li>
-            <li><a href="index.php?p=quizz">Quizz</a></li>
+            <li><a href="index.php?p=quizz&id=1">Quizz</a></li>
         </ul>
     </nav>
 </div>
@@ -20,7 +20,7 @@ include_once 'header.php' ?>
         <ul>
             <li><a href="index.php?p=pays">Nations</a></li>
             <li><a href="index.php?p=dates">Compétitions</a></li>
-            <li><a href="index.php?p=quizz">Quizz</a></li>
+            <li><a href="index.php?p=quizz&id=1">Quizz</a></li>
         </ul>
     </nav>
 </header>
@@ -37,7 +37,6 @@ include_once 'header.php' ?>
       $date = date("Y", strtotime($competition[0]["c_date"]));
     ?>
     <div class="date"><?php echo $date ?></div>
-
 
     <div class="next <?php if(is_null($competition[0]['next'])) { echo 'hidden'; }?>" <?php if(!is_null($competition[0]['next'])) : ?>data-next-id="<?php echo $competition[0]['next']['id'] ?>"<?php endif ?>>
         <div class="line"></div>
@@ -68,7 +67,7 @@ include_once 'header.php' ?>
             <div class="circle"></div>
             <a id="more-infos" href="">En savoir plus</a>
         </div>
-        <div class="more-musics-btn">
+        <div class="more-musics-btn <?php if($competition[0]['populaire'] == false) { echo 'none'; } ?>">
             <div class="circle"></div>
             <a id="more-musics" href="">Musique populaire</a>
         </div>
@@ -85,7 +84,7 @@ include_once 'header.php' ?>
             <hr>
             <div class="flags">
                 <?php foreach($competition as $value):?>
-                <img  class="clip-circle" src="assets/images/flags/<?=$value->pays_participant?>.png">
+                <img  class="clip-circle" src="assets/images/flags/<?php echo $value['participant_flag']; ?>.png">
                 <?php endforeach ?>
             </div>
         </div>
@@ -97,15 +96,15 @@ include_once 'header.php' ?>
                 <p id="winner"><?=$competition[0]["c_gagnant"]?></p>
             </div>
             <ul>
-                <li><span>2</span> <?=$competition[0]["c_finaliste"]?></li>
-                <li><span>3</span> <?=$competition[0]["c_semi_1"]?></li>
-                <li><span>4</span> <?=$competition[0]["c_semi_2"]?></li>
+                <li><span>2</span> <span class="finaliste"><?=$competition[0]["c_finaliste"]?></span></li>
+                <li><span>3</span> <span class="semi1"><?=$competition[0]["c_semi_1"]?></span></li>
+                <li><span>4</span> <span class="semi2"><?=$competition[0]["c_semi_2"]?></span></li>
             </ul>
         </div>
         <div class="know">
             <span class="span">Le saviez-vous ?</span>
             <hr>
-            <p><?=$competition[0]["c_description"]?></p>
+            <p class="description"><?=$competition[0]["c_description"]?></p>
         </div>
     </div>
 
@@ -113,15 +112,16 @@ include_once 'header.php' ?>
 
     <div id="div-more-musics" class="more-musics hidden">
         <a class="cross" href=""><img src="assets/images/cross.svg"></a>
-        <p class="more-musics-title">We are the champions</p>
-        <p class="more-musics-artist">Queen, 1977</p>
-        <audio id="audio2" src="assets/musics/Queen.mp3" type="audio/mp3"></audio>
+        <p class="more-musics-title"><?php if($competition[0]['populaire'] != false) : ?><?=$competition[0]["populaire"]->name?><?php endif ?></p>
+        <p class="more-musics-artist"><?php if($competition[0]['populaire'] != false) : ?><?=$competition[0]["populaire"]->description?><?php endif ?></p>
+        <audio id="audio2" src="assets/musics/<?php if($competition[0]['populaire'] != false) : ?><?=$competition[0]["populaire"]->audio?><?php endif ?>.mp3" type="audio/mp3"></audio>
         <a id="play-music-two" class="play-two calltoaction" href=""><span>Play</span> <img id="yellow" src="assets/images/triangle.svg"><img id="blue" class="none" src="assets/images/triangleblue.svg"></a>
         <a id="pause-music-two" class="play-two calltoaction none" href=""><span id="pause">Pause</span> <img id="yellow" src="assets/images/pauseyellow.svg"><img id="blue" class="none" src="assets/images/pauseblue.svg"></a>
         <a class="quizz-share-btn fb" href=""><img src="assets/images/fb.svg"> partager</a>
     </div>
 </section>
 
+<div class="background-scroll"></div>
 <script src="assets/js/timeline.js"></script>
 <script src="assets/js/timeline.scroll.js"></script>
 <?php include_once 'footer.php' ?>

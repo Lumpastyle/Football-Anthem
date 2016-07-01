@@ -111,7 +111,8 @@ class PageRepository
      * @param $name
      * @return mixed
      */
-    public function getNextAndPreviousFor($id){
+    public function getNextAndPreviousFor($id)
+    {
         $sql ="SELECT
                     *
                 FROM
@@ -138,7 +139,6 @@ class PageRepository
                 } else {
                     $next = $result[$index+1];
                 }
-
                 return ['prev' => $prev, 'next' => $next];
             }
         }
@@ -192,6 +192,7 @@ class PageRepository
                     py2.name as pays_participant,
                     part.name as compe,
                     img2.lien as gagnant_flag,
+                    img3.lien as participant_flag,
                     c.visuel as c_visuel,
                     pyw.name as c_gagnant,
                     pyf.name as c_finaliste,
@@ -206,6 +207,7 @@ class PageRepository
                     JOIN image as img1 ON img1.id = c.id_image
 					JOIN participants as part ON part.id_competition = c.id
 					JOIN pays as py2 ON part.id_pays = py2.id
+                    JOIN image as img3 ON py2.id_image = img3.id
                     JOIN pays as py3 ON py3.id = pod.id_winner
                     JOIN image as img2 ON py3.id_image = img2.id
                     JOIN pays as pyw ON pyw.id = pod.id_winner
@@ -259,21 +261,20 @@ class PageRepository
     }
 
 
-    public function getTimelinePopulaire()
+    public function getTimelinePopulaire($id)
     {
         $sql ="SELECT
-                    c.id,
-                    pop.name,
-                    pop.audio,
-                    pop.description
+                    *
                 FROM
-                    competition as c
-                    INNER JOIN populaire as pop ON c.id = pop.id_competition
+                    populaire
+                WHERE
+                    id_competition = :id
                 ";
         $stmt = $this->PDO->prepare($sql);
+        $stmt->bindParam(':id',$id);
         $stmt->execute();
 
-        return $stmt->fetchAll(\PDO::FETCH_OBJ);
+        return $stmt->fetchObject();
     }
 
     /**
@@ -299,6 +300,44 @@ class PageRepository
         $stmt->execute();
 
         return $stmt->fetchObject();
+    }
+
+    /**
+     * @param $name
+     * @return mixed
+     */
+
+    public function getPaysByName($name)
+    {
+
+        $sql ="SELECT
+                    p.id as pays_id,
+                    h.id as hymne_id,
+                    p.name as pays_name,
+                    h.name as hymne_name,
+                    h.description as hymne_description,
+                    h.date as hymne_date,
+                    h.auteur as hymne_auteur,
+                    h.audio as hymne_audio,
+                    p.nb_euro as nb_euro,
+                    p.nb_world as nb_world,
+                    p.win_euro as win_euro,
+                    p.win_world as win_world,
+                    i.id as image_id,
+                    i.name as image_name,
+                    i.lien as image_lien
+                FROM
+                    pays as p
+                    JOIN hymne as h ON h.id = p.id_hymne
+                    JOIN image as i ON i.id = p.id_image
+				WHERE
+				    p.name = :name
+                ";
+        $stmt = $this->PDO->prepare($sql);
+        $stmt->bindParam(':name',$name);
+        $stmt->execute();
+
+        return $stmt->fetchAll();
     }
 
     /**
@@ -349,6 +388,7 @@ class PageRepository
 
         return $stmt->fetchObject();
     }
+
 
     /**
      * @param $id
@@ -757,6 +797,31 @@ class PageRepository
     /**
      * @return array
      */
+    public function getAllCountries()
+    {
+        $sql ="SELECT
+                    p.id,
+                    p.name,
+                    p.id_hymne,
+                    p.nb_euro,
+                    p.nb_world,
+                    p.win_euro,
+                    p.win_world,
+                    p.description,
+                    i.lien as image_lien
+                FROM
+                    pays as p
+                    JOIN image as i ON i.id = p.id_image
+                ";
+        $stmt = $this->PDO->prepare($sql);
+        $stmt->execute();
+
+        return $stmt->fetchAll(\PDO::FETCH_OBJ);
+    }
+
+    /**
+     * @return array
+     */
     public function findAllHymne()
     {
         $sql ="SELECT
@@ -861,27 +926,6 @@ class PageRepository
     /**
      * @return array
      */
-    public function findAllPopulaire()
-    {
-        $sql ="SELECT
-                    `id`,
-                    `name`,
-                    `id_competition`,
-                    `description`,
-                    `audio`
-                FROM
-                    `populaire`
-                ";
-
-        $stmt = $this->PDO->prepare($sql);
-        $stmt->execute();
-
-        return $stmt->fetchAll(\PDO::FETCH_OBJ);
-    }
-
-    /**
-     * @return array
-     */
     public function findFiveQuizz()
     {
         $sql ="SELECT
@@ -894,9 +938,30 @@ class PageRepository
                 FROM
                     `quizz`
                 ORDER BY
-                    rand()
+                   rand()
                 LIMIT
                     5
+                ";
+
+        $stmt = $this->PDO->prepare($sql);
+        $stmt->execute();
+
+        return $stmt->fetchAll(\PDO::FETCH_OBJ);
+    }
+
+    /**
+     * @return array
+     */
+    public function findAllPopulaire()
+    {
+        $sql ="SELECT
+                    `id`,
+                    `name`,
+                    `id_competition`,
+                    `description`,
+                    `audio`
+                FROM
+                    `populaire`
                 ";
 
         $stmt = $this->PDO->prepare($sql);

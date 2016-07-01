@@ -1,3 +1,33 @@
+.background-scroll{
+	background: #FFFB00;
+	width: 100%;
+	height:100vh;
+	overflow-x: hidden;
+	bottom: -100vh;
+	position: absolute;
+}
+
+.background-scroll-animation{
+	transition: 2s;
+	top: -100vh !important;
+}
+
+.question p{
+	color: #fff;
+	margin-bottom: 30px;
+	text-align: center;
+}
+
+.quizz-score.none{
+	display: none !important;
+}
+
+button{
+	outline: none;
+}
+
+
+
 /*--------------------------------------------------------- Body -----------------------------------------------------------*/
 
 @font-face {
@@ -81,7 +111,7 @@ a{
     background: #000000;
     opacity: 0.8;
     position: fixed;
-    z-index: 1;
+    z-index: 10;
     display: none;
 }
 
@@ -328,7 +358,7 @@ body header .main-nav ul li a:hover{
 	color: #fff;
 	text-transform: uppercase;
 	font-size: 130px;
-	width: 70%;
+	width: 100%;
 	line-height: 120px;
 }
 
@@ -350,6 +380,8 @@ body header .main-nav ul li a:hover{
 .competitions .music .calltoaction{
 	margin-top: 20px;
 	display: inline-block;
+	position: relative;
+	z-index: 5;
 }
 
 .competitions .music .calltoaction.none{
@@ -371,6 +403,7 @@ body header .main-nav ul li a:hover{
 	position: absolute;
 	bottom: 9%;
 	left: 0;
+	z-index: 5;
 }
 
 .competitions .more-btns .more-infos-btn{
@@ -402,6 +435,7 @@ body header .main-nav ul li a:hover{
 	position: absolute;
 	bottom: 20%;
 	right: 3%;
+	z-index: 5;
 }
 
 .competitions .music-desc h4{
@@ -431,10 +465,14 @@ body header .main-nav ul li a:hover{
 }
 
 .competitions .portraits{
-	height: 100%;
+	width: 70%;
 	position: absolute;
+	right: 35%;
+	z-index: 2;
+}
+
+.competitions .portraits.bottom{
 	bottom: 0;
-	right: 45%;
 }
 
 .competitions .more-infos{
@@ -693,7 +731,7 @@ body header .main-nav ul li a:hover{
 /*------------------------------------------------------- Map ----------------------------------------------------*/
 
 .map-popup{
-	position: absolute;
+	position: fixed;
 	right: 0;
 	top: 0;
 	background-color: #fff;
@@ -1000,6 +1038,11 @@ b.goal-tracker__signed {
 	color: #fff;
 	background-color: #949494;
 	cursor: pointer;
+}
+
+.selected{
+	color: #fff !important;
+	background-color: #949494 !important;
 }
 
 .quizz .question .good{
