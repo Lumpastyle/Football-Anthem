@@ -9,7 +9,7 @@ include_once 'header.php' ?>
         <ul>
             <li><a href="index.php?p=pays">Nations</a></li>
             <li><a href="index.php?p=dates">Compétitions</a></li>
-            <li><a href="index.php?p=quizz">Quizz</a></li>
+            <li><a href="index.php?p=quizz&id=1">Quizz</a></li>
         </ul>
     </nav>
 </div>
@@ -20,7 +20,7 @@ include_once 'header.php' ?>
         <ul>
             <li><a href="index.php?p=pays">Nations</a></li>
             <li><a href="index.php?p=dates">Compétitions</a></li>
-            <li><a href="index.php?p=quizz">Quizz</a></li>
+            <li><a href="index.php?p=quizz&id=1">Quizz</a></li>
         </ul>
     </nav>
 </header>
@@ -37,7 +37,6 @@ include_once 'header.php' ?>
       $date = date("Y", strtotime($competition[0]["c_date"]));
     ?>
     <div class="date"><?php echo $date ?></div>
-
 
     <div class="next <?php if(is_null($competition[0]['next'])) { echo 'hidden'; }?>" <?php if(!is_null($competition[0]['next'])) : ?>data-next-id="<?php echo $competition[0]['next']['id'] ?>"<?php endif ?>>
         <div class="line"></div>
@@ -84,16 +83,16 @@ include_once 'header.php' ?>
             <span class="span">Participants</span>
             <hr>
             <div class="flags">
-                <?php foreach($competition as $value):?>
-                <img  class="clip-circle" src="assets/images/flags/<?=$value->pays_participant?>.png">
-                <?php endforeach ?>
+                <?php //foreach($competition as $value):?>
+                <img  class="clip-circle" src="assets/images/flag/<?=$value['pays_participant']?>.png">
+                <?php //endforeach ?>
             </div>
         </div>
         <div class="finalistes">
             <span class="span">Finalistes</span>
             <hr>
             <div class="winner-list">
-                <img  class="clip-circle" src="assets/images/flags/<?=$competition[0]["gagnant_flag"]?>.png">
+                <img  class="clip-circle" src="assets/images/flag/<?=$competition[0]["gagnant_flag"]?>.png">
                 <p id="winner"><?=$competition[0]["c_gagnant"]?></p>
             </div>
             <ul>
@@ -122,6 +121,7 @@ include_once 'header.php' ?>
     </div>
 </section>
 
+<div class="background-scroll"></div>
 <script src="assets/js/timeline.js"></script>
 <script src="assets/js/timeline.scroll.js"></script>
 <?php include_once 'footer.php' ?>

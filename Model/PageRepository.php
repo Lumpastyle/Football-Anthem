@@ -111,7 +111,8 @@ class PageRepository
      * @param $name
      * @return mixed
      */
-    public function getNextAndPreviousFor($id){
+    public function getNextAndPreviousFor($id)
+    {
         $sql ="SELECT
                     *
                 FROM
@@ -138,7 +139,6 @@ class PageRepository
                 } else {
                     $next = $result[$index+1];
                 }
-
                 return ['prev' => $prev, 'next' => $next];
             }
         }
@@ -298,6 +298,44 @@ class PageRepository
     }
 
     /**
+     * @param $name
+     * @return mixed
+     */
+
+    public function getPaysByName($name)
+    {
+
+        $sql ="SELECT
+                    p.id as pays_id,
+                    h.id as hymne_id,
+                    p.name as pays_name,
+                    h.name as hymne_name,
+                    h.description as hymne_description,
+                    h.date as hymne_date,
+                    h.auteur as hymne_auteur,
+                    h.audio as hymne_audio,
+                    p.nb_euro as nb_euro,
+                    p.nb_world as nb_world,
+                    p.win_euro as win_euro,
+                    p.win_world as win_world,
+                    i.id as image_id,
+                    i.name as image_name,
+                    i.lien as image_lien
+                FROM
+                    pays as p
+                    JOIN hymne as h ON h.id = p.id_hymne
+                    JOIN image as i ON i.id = p.id_image
+				WHERE
+				    p.name = :name
+                ";
+        $stmt = $this->PDO->prepare($sql);
+        $stmt->bindParam(':name',$name);
+        $stmt->execute();
+
+        return $stmt->fetchAll();
+    }
+
+    /**
      * @param $id
      * @return mixed
      */
@@ -345,6 +383,7 @@ class PageRepository
 
         return $stmt->fetchObject();
     }
+
 
     /**
      * @param $id
@@ -751,6 +790,31 @@ class PageRepository
     /**
      * @return array
      */
+    public function getAllCountries()
+    {
+        $sql ="SELECT
+                    p.id,
+                    p.name,
+                    p.id_hymne,
+                    p.nb_euro,
+                    p.nb_world,
+                    p.win_euro,
+                    p.win_world,
+                    p.description,
+                    i.lien as image_lien
+                FROM
+                    pays as p
+                    JOIN image as i ON i.id = p.id_image
+                ";
+        $stmt = $this->PDO->prepare($sql);
+        $stmt->execute();
+
+        return $stmt->fetchAll(\PDO::FETCH_OBJ);
+    }
+
+    /**
+     * @return array
+     */
     public function findAllHymne()
     {
         $sql ="SELECT
@@ -855,27 +919,6 @@ class PageRepository
     /**
      * @return array
      */
-    public function findAllPopulaire()
-    {
-        $sql ="SELECT
-                    `id`,
-                    `name`,
-                    `id_competition`,
-                    `description`,
-                    `audio`
-                FROM
-                    `populaire`
-                ";
-
-        $stmt = $this->PDO->prepare($sql);
-        $stmt->execute();
-
-        return $stmt->fetchAll(\PDO::FETCH_OBJ);
-    }
-
-    /**
-     * @return array
-     */
     public function findFiveQuizz()
     {
         $sql ="SELECT
@@ -888,9 +931,30 @@ class PageRepository
                 FROM
                     `quizz`
                 ORDER BY
-                    rand()
+                   rand()
                 LIMIT
                     5
+                ";
+
+        $stmt = $this->PDO->prepare($sql);
+        $stmt->execute();
+
+        return $stmt->fetchAll(\PDO::FETCH_OBJ);
+    }
+
+    /**
+     * @return array
+     */
+    public function findAllPopulaire()
+    {
+        $sql ="SELECT
+                    `id`,
+                    `name`,
+                    `id_competition`,
+                    `description`,
+                    `audio`
+                FROM
+                    `populaire`
                 ";
 
         $stmt = $this->PDO->prepare($sql);

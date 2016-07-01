@@ -1,5 +1,9 @@
 jQuery(function(){
 
+    // permet d'éviter le scroll sur la page
+    $('body').css('overflow','hidden');
+    $('html').css('overflow','hidden');
+
     $("#more-infos").click(function(e){
         e.preventDefault();
         $('#div-more-infos').removeClass('hidden');
@@ -29,15 +33,6 @@ jQuery(function(){
         $('.more-infos').addClass('hidden');
         $('.more-musics').addClass('hidden');
         $('.more-infos').removeClass('visible');
-        $('#filtre_anim').hide();
-    });
-
-    $(".more-musics .cross").click(function(e){
-        e.preventDefault();
-        $('.more-infos').addClass('hidden');
-        $('.more-musics').addClass('hidden');
-        $('.more-musics').removeClass('visible');
-        $(".more-musics .play-two").click();
         $('#filtre_anim').hide();
     });
 
@@ -91,6 +86,19 @@ jQuery(function(){
             $('#pause-music-two').addClass('none');
             audio.pause();
         }
+
+        $(".more-musics .cross").click(function(e){
+            e.preventDefault();
+            $('.more-infos').addClass('hidden');
+            $('.more-musics').addClass('hidden');
+            $('.more-musics').removeClass('visible');
+            $(".more-musics .play-two").click();
+            $('#filtre_anim').hide();
+            audio.pause();
+            audio.currentTime = 0;
+            $('#pause-music-one').removeClass('none');
+            $('#play-music-one').addClass('none');
+        });
     });
 
     //   $("#div-more-musics #play-music").click(function(e){

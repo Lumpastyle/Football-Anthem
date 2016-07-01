@@ -8,7 +8,7 @@ include_once 'header.php' ?>
         <ul>
             <li><a href="index.php?p=pays">Nations</a></li>
             <li><a href="index.php?p=dates">Compétitions</a></li>
-            <li><a href="index.php?p=quizz">Quizz</a></li>
+            <li><a href="index.php?p=quizz&id=1">Quizz</a></li>
         </ul>
     </nav>
 </div>
@@ -19,7 +19,7 @@ include_once 'header.php' ?>
         <ul>
             <li><a href="index.php?p=pays">Nations</a></li>
             <li><a class="active" href="index.php?p=dates">Compétitions</a></li>
-            <li><a href="index.php?p=quizz">Quizz</a></li>
+            <li><a href="index.php?p=quizz&id=1">Quizz</a></li>
         </ul>
     </nav>
 </header>

@@ -1,6 +1,55 @@
 jQuery.noConflict();
 jQuery(function(){
     var $ = jQuery;
+    var audio;
+    var assetsFlag = 'assets/images/flag/';
+    var assetsAudio = 'assets/musics/hymne_pays/';
+
+    $(".map-play .map-play-play").click(function(e){
+        e.preventDefault();
+        audio = document.getElementById('audio1');
+        if (audio.paused) {
+            audio.play();
+        }else{
+            audio.pause();
+        }
+    });
+
+    $("header #burger").click(function(e){
+        e.preventDefault();
+        $('#div-burger').removeClass('none');
+        $('header #burger').addClass('hidden');
+
+        $('#list-pays').addClass('none');
+        $('#header-map').addClass('none');
+        $('.map-popup').addClass('none');
+    });
+
+    $("#div-burger .cross").click(function(e){
+        e.preventDefault();
+        $('#div-burger').addClass('none');
+        $('header #burger').removeClass('hidden');
+
+        $('#list-pays').removeClass('none');
+        $('#header-map').removeClass('none');
+        $('.map-popup').removeClass('none');
+    });
+
+    $("#list-pays a").click(function(e){
+        e.preventDefault();
+        var name = $(this).data('name');
+        openPopin(name)
+    });
+
+    $(".map-popup .cross").click(function(e){
+        e.preventDefault();
+        $('.map-popup').addClass('none');
+        $('#list-pays').css({
+            'display' : 'block'
+        });
+        audio.pause();
+        audio.currentTime = 0;
+    });
 
     $('#focus-single').click(function(){
         $('#map1').vectorMap('set', 'focus', {region: 'AU', animate: true});
@@ -219,59 +268,6 @@ jQuery(function(){
     });
 
 
-    $(".cross").click(function(e){
-        e.preventDefault();
-        $('.map-popup').addClass('hidden');
-    });
-
-    $(".map-popup .map-play-play").click(function(e){
-        e.preventDefault();
-        var audio = document.getElementById('audio1');
-        if (audio.paused) {
-            audio.play();
-        }else{
-            audio.pause();
-            audio.currentTime = 0
-        }
-    });
-
-    $("header #burger").click(function(e){
-        e.preventDefault();
-        $('#div-burger').removeClass('none');
-        $('header #burger').addClass('hidden');
-
-        $('#list-pays').addClass('none');
-        $('#header-map').addClass('none');
-        $('.map-popup').addClass('none');
-    });
-
-    $("#div-burger .cross").click(function(e){
-        e.preventDefault();
-        $('#div-burger').addClass('none');
-        $('header #burger').removeClass('hidden');
-
-        $('#list-pays').removeClass('none');
-        $('#header-map').removeClass('none');
-        $('.map-popup').removeClass('none');
-    });
-
-    $("#list-pays a").click(function(e){
-        e.preventDefault();
-        $('.map-popup').removeClass('none');
-        $('#list-pays').css({
-            'display' : 'none'
-        });
-    });
-
-    $(".map-popup .cross").click(function(e){
-        e.preventDefault();
-        $('.map-popup').addClass('none');
-        $('#list-pays').css({
-            'display' : 'block'
-        });
-    });
-
-
 
     function openPopin(pays) {
         $.ajax({
@@ -280,11 +276,23 @@ jQuery(function(){
             data: {pays: pays},
             dataType: 'json',
             success:function(data) {
-                console.log(data);
                 if(data.type == 'success') {
                     $('.map-popup').removeClass('none');
                     var country = data.pays;
-                    $('.map-popup h2').html(country.name);
+                    $('.map-popup h2').html(country.pays_name);
+                    hymne_name = country.hymne_description.split(': ')[0];
+                    hymne_description = country.hymne_description.split(': ')[1];
+
+                    $('.country-img').attr('src', assetsFlag + country.image_lien + '.png');
+                    $('#audio1').attr('src', assetsAudio + country.hymne_audio + '.mp3');
+
+                    $('.map-popup h3').html(hymne_name);
+                    $('.map-play-artist').html(country.hymne_auteur + ' - ' + new Date(country.hymne_date).getFullYear());
+                    $('.map-popup-desc').html(hymne_description);
+
+                    $('.map-popup-participations .coupe span').html(country.nb_coupe);
+                    $('.map-popup-participations .euro span').html(country.nb_euro);
+                    $('.map-popup-participations .award span').html(parseInt(country.win_world) + parseInt(country.win_euro));
                 } else if(data.type == 'error') {
                     $('.map-popup').addClass('none');
                 }
