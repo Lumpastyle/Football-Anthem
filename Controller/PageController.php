@@ -40,8 +40,8 @@ class PageController
         // récupérère la compétition par le nom
         $competition = $this->repository->getCompetitionByName($name);
 
+        $populaire = $this->repository->getTimelinePopulaire($competition->id);
         $competition = $this->repository->getTimelineDataById($competition->id);
-        $populaire = $this->repository->getTimelinePopulaire();
 
 
 
@@ -49,6 +49,7 @@ class PageController
         $prevAndNext = $this->repository->getNextAndPreviousFor($competition[0]['id']);
         $competition[0]['prev'] = $prevAndNext['prev'];
         $competition[0]['next'] = $prevAndNext['next'];
+        $competition[0]['populaire'] = $populaire;
 
         require "View/timeline.php";
     }
@@ -58,8 +59,9 @@ class PageController
         $route = "competition";
         $competition = $this->repository->getCompetitionById($id);
 
+        $populaire = $this->repository->getTimelinePopulaire($competition->id);
+        
         $competition = $this->repository->getTimelineDataById($competition->id);
-        $populaire = $this->repository->getTimelinePopulaire();
 
 
 
@@ -67,6 +69,7 @@ class PageController
         $prevAndNext = $this->repository->getNextAndPreviousFor($competition[0]['id']);
         $competition[0]['prev'] = $prevAndNext['prev'];
         $competition[0]['next'] = $prevAndNext['next'];
+        $competition[0]['populaire'] = $populaire;
 
         $response = $competition;
 

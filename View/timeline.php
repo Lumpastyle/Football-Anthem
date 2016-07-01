@@ -67,7 +67,7 @@ include_once 'header.php' ?>
             <div class="circle"></div>
             <a id="more-infos" href="">En savoir plus</a>
         </div>
-        <div class="more-musics-btn">
+        <div class="more-musics-btn <?php if($competition[0]['populaire'] == false) { echo 'none'; } ?>">
             <div class="circle"></div>
             <a id="more-musics" href="">Musique populaire</a>
         </div>
@@ -83,28 +83,28 @@ include_once 'header.php' ?>
             <span class="span">Participants</span>
             <hr>
             <div class="flags">
-                <?php //foreach($competition as $value):?>
-                <img  class="clip-circle" src="assets/images/flag/<?=$value['pays_participant']?>.png">
-                <?php //endforeach ?>
+                <?php foreach($competition as $value):?>
+                <img  class="clip-circle" src="assets/images/flags/<?php echo $value['participant_flag']; ?>.png">
+                <?php endforeach ?>
             </div>
         </div>
         <div class="finalistes">
             <span class="span">Finalistes</span>
             <hr>
             <div class="winner-list">
-                <img  class="clip-circle" src="assets/images/flag/<?=$competition[0]["gagnant_flag"]?>.png">
+                <img  class="clip-circle" src="assets/images/flags/<?=$competition[0]["gagnant_flag"]?>.png">
                 <p id="winner"><?=$competition[0]["c_gagnant"]?></p>
             </div>
             <ul>
-                <li><span>2</span> <?=$competition[0]["c_finaliste"]?></li>
-                <li><span>3</span> <?=$competition[0]["c_semi_1"]?></li>
-                <li><span>4</span> <?=$competition[0]["c_semi_2"]?></li>
+                <li><span>2</span> <span class="finaliste"><?=$competition[0]["c_finaliste"]?></span></li>
+                <li><span>3</span> <span class="semi1"><?=$competition[0]["c_semi_1"]?></span></li>
+                <li><span>4</span> <span class="semi2"><?=$competition[0]["c_semi_2"]?></span></li>
             </ul>
         </div>
         <div class="know">
             <span class="span">Le saviez-vous ?</span>
             <hr>
-            <p><?=$competition[0]["c_description"]?></p>
+            <p class="description"><?=$competition[0]["c_description"]?></p>
         </div>
     </div>
 
@@ -112,9 +112,9 @@ include_once 'header.php' ?>
 
     <div id="div-more-musics" class="more-musics hidden">
         <a class="cross" href=""><img src="assets/images/cross.svg"></a>
-        <p class="more-musics-title">We are the champions</p>
-        <p class="more-musics-artist">Queen, 1977</p>
-        <audio id="audio2" src="assets/musics/Queen.mp3" type="audio/mp3"></audio>
+        <p class="more-musics-title"><?php if($competition[0]['populaire'] != false) : ?><?=$competition[0]["populaire"]->name?><?php endif ?></p>
+        <p class="more-musics-artist"><?php if($competition[0]['populaire'] != false) : ?><?=$competition[0]["populaire"]->description?><?php endif ?></p>
+        <audio id="audio2" src="assets/musics/<?php if($competition[0]['populaire'] != false) : ?><?=$competition[0]["populaire"]->audio?><?php endif ?>.mp3" type="audio/mp3"></audio>
         <a id="play-music-two" class="play-two calltoaction" href=""><span>Play</span> <img id="yellow" src="assets/images/triangle.svg"><img id="blue" class="none" src="assets/images/triangleblue.svg"></a>
         <a id="pause-music-two" class="play-two calltoaction none" href=""><span id="pause">Pause</span> <img id="yellow" src="assets/images/pauseyellow.svg"><img id="blue" class="none" src="assets/images/pauseblue.svg"></a>
         <a class="quizz-share-btn fb" href=""><img src="assets/images/fb.svg"> partager</a>

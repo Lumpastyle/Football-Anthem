@@ -11,6 +11,5 @@ composer.phar
 .DS_Store
 assets/musics/
 assets/images/portraits/
-assets/images/flag/
-assets/images/logo_euro/
-assets/images/logo_coupe_du_monde/
+assets/images/flags/
+assets/images/competitions/

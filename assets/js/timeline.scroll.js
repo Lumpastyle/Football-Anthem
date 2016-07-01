@@ -36,6 +36,11 @@ jQuery(function(){
     isLast = true;
   }
 
+  $('.more-infos').off('scroll').on('scroll', function(){ 
+    isScrolling = true; 
+    console.log(isScrolling);
+  });
+
 
   $(window).bind('mousewheel', function(event) {
       if (event.originalEvent.wheelDelta > 0 && !isScrolling && !isFirst) {
@@ -50,15 +55,27 @@ jQuery(function(){
       }
   });
 
+  prevEl.on('click', function(event) {
+      event.preventDefault();
+      isScrolling = true;
+      toUp = true;
+      getPreviousSlide();
+  });
+
+  nextEl.on('click', function(event) {
+      event.preventDefault();
+      isScrolling = true;
+      toUp = false;
+      getNextSlide();
+  });
+
   function getPreviousSlide() {
-    console.log('GOT PREVIOUS SLIDE');
     var prev = prevEl.data('prev-id');
     outAnimations();
     getCompetition(prev);
   }
 
   function getNextSlide() {
-    console.log('GOT NEXT SLIDE');
     var next = nextEl.data('next-id');
     outAnimations();
     getCompetition(next);
@@ -66,20 +83,64 @@ jQuery(function(){
   }
 
   function getCompetition(id){
+    var audio = document.getElementById('audio1');
+    audio.pause();
+    audio.currentTime = 0;
+    $('#play-music-one').removeClass('none');
+    $('#pause-music-one').addClass('none');
+
+    var audio2 = document.getElementById('audio2');
+    audio2.pause();
+    audio2.currentTime = 0;
+    $('#play-music-two').removeClass('none');
+    $('#pause-music-two').addClass('none');
+
     $.ajax({
         url:"get_competition.php",
         type: 'GET',
         data: {'id': id},
         dataType: 'json',
-        success:function(compet) {
+        success:function(data) {
+
+            
             // On met un timeout sur le changement des valeurs dans l'html , et on lance les animations d'entrées
             // permet de pas voir les changements immédiatement et ensuite les anims d'entrées.
             setTimeout(function(){
-              compet = compet[0];
+
+              compet = data[0];
               compet.c_date = new Date(compet.c_date).getFullYear();
               actualEl.html(compet.c_date);
               $('.music h3').html(compet.compe + ' - ' + compet.orga);
               $('.music h2').html(compet.c_hymne);
+              $('#audio1').attr("src", "assets/musics/"+compet.c_audio+".mp3");
+              $('.portraits').attr("href", "assets/images/portraits/"+compet.c_visuel+".png");
+              $('.music-desc h4').html(compet.h_chanteur);
+              $('.music-desc p').html(compet.h_desc);
+              $('.logo-competition').attr("src","assets/images/competitions/"+compet.c_image+".png");
+
+              $('.portraits').attr("src","assets/images/portraits/"+compet.c_visuel+".png");
+              $('#winner').html(compet.c_gagnant);
+              $('.finaliste').html(compet.c_finaliste);
+              $('.semi1').html(compet.c_semi_1);
+              $('.semi2').html(compet.c_semi_2);
+              $('.know .description').html(compet.c_description);
+              $('.winner-list .clip-circle').attr("src","assets/images/flags/"+compet.gagnant_flag+".png");
+              var template = "";
+
+              data.forEach(function(value, index) {
+                template += '<img  class="clip-circle" src="assets/images/flags/'+value.participant_flag+'.png">'
+              });
+
+              $('.flags').html(template);
+              
+              if(compet.populaire != false) {
+                $('.more-musics-btn').removeClass('none');
+                $('.more-musics-title').html(compet.populaire.name);
+                $('.more-musics-artist').html(compet.populaire.description);
+                $('#audio2').attr('src', "assets/musics/"+compet.populaire.audio+".mp3")
+              } else {
+                $('.more-musics-btn').addClass('none');
+              }
 
               if(compet.prev != null) {
                 compet.prev.date = new Date(compet.prev.date).getFullYear();
@@ -107,6 +168,17 @@ jQuery(function(){
             }, 500);
         }
     });
+  }
+
+  function isBottom() {
+    var a = $(".portraits").offset().top;
+    var b = $(".portraits").height();
+    var c = $(window).height();
+    var d = $(window).scrollTop();
+    if ((c+d)>(a+b)) {
+      //bottom of #mydiv has just become visible
+      $(".portraits").addClass('bottom');
+    }
   }
 
   function outAnimations() {

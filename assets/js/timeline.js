@@ -87,18 +87,19 @@ jQuery(function(){
             audio.pause();
         }
 
-        $(".more-musics .cross").click(function(e){
-            e.preventDefault();
-            $('.more-infos').addClass('hidden');
-            $('.more-musics').addClass('hidden');
-            $('.more-musics').removeClass('visible');
-            $(".more-musics .play-two").click();
-            $('#filtre_anim').hide();
-            audio.pause();
-            audio.currentTime = 0;
-            $('#pause-music-one').removeClass('none');
-            $('#play-music-one').addClass('none');
-        });
+    });
+    $(".more-musics .cross").click(function(e){
+        e.preventDefault();
+        var audio = document.getElementById('audio2');
+        $('.more-infos').addClass('hidden');
+        $('.more-musics').addClass('hidden');
+        $('.more-musics').removeClass('visible');
+        $(".more-musics .play-two").click();
+        $('#filtre_anim').hide();
+        audio.pause();
+        audio.currentTime = 0;
+        $('#pause-music-one').removeClass('none');
+        $('#play-music-one').addClass('none');
     });
 
     //   $("#div-more-musics #play-music").click(function(e){
