@@ -27,12 +27,61 @@ class PageController
     }
     public function timelineAction()
     {
-        //competition join pays join hymne join image
-        //populaire
+        $route = "timeline";
+
+        $request = $_GET;
+
+        // récupère le nom de la compétition
+        if(isset($request['name'])) {
+          $name = $request['name'];
+        } else {
+          $name = "euro_2016";
+        }
+
+        // récupérère la compétition par le nom
+
+        $competition = $this->repository->getCompetitionByName($name);
+
+        $competition = $this->repository->getTimelineDataById($competition->id);
+        $populaire = $this->repository->getTimelinePopulaire();
+
+
+
+        // récupération de la compétion précédente et suivante à notre compétition actuelle.
+        $prevAndNext = $this->repository->getNextAndPreviousFor($competition[0]['id']);
+        $competition[0]['prev'] = $prevAndNext['prev'];
+        $competition[0]['next'] = $prevAndNext['next'];
+
         require "View/timeline.php";
     }
+
+    public function getCompetition($id)
+    {
+        $route = "competition";
+
+        $model = $this->repository;
+        $request = $_GET;
+
+        $competition = $model->getCompetitionById($id);
+
+        $competition = $this->repository->getTimelineDataById($competition->id);
+        $populaire = $this->repository->getTimelinePopulaire();
+
+
+
+        // récupération de la compétion précédente et suivante à notre compétition actuelle.
+        $prevAndNext = $this->repository->getNextAndPreviousFor($competition[0]['id']);
+        $competition[0]['prev'] = $prevAndNext['prev'];
+        $competition[0]['next'] = $prevAndNext['next'];
+
+        $response = $competition;
+
+        require "View/response.php";
+    }
+
     public function datesAction()
     {
+        $route = "dates";
         //competition_date
         require "View/dates.php";
     }
@@ -44,6 +93,7 @@ class PageController
     }
     public function quizzAction()
     {
+        $route = "quizz";
         //quizz
         require "View/quizz.php";
     }
